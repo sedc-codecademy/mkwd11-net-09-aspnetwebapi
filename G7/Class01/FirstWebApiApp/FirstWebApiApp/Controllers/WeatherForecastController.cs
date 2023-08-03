@@ -18,7 +18,7 @@ namespace FirstWebApiApp.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
+        [HttpGet("get-all")]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
@@ -30,7 +30,7 @@ namespace FirstWebApiApp.Controllers
             .ToArray();
         }
 
-        [HttpGet(Name = "GetWeatherForecastById")]
+        [HttpGet("get-by-id")]
         //7
         //[0,1,2,3,4,5,6]
         public WeatherForecast GetById(int id)
