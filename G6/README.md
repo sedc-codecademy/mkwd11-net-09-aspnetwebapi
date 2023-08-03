@@ -30,5 +30,5 @@ This repository will contain every piece of material about the subject. It will 
 
 ## Contact
 
-* Trainer: trainer mail
-* Assistant: assistant mail
+* Trainer: stojanovskatanja@hotmail.com
+* Assistant: kar.kristijan@gmail.com
