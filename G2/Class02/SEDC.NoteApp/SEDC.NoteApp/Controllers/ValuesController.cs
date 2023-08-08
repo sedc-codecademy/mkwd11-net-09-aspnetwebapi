@@ -52,5 +52,17 @@ namespace SEDC.NoteApp.Controllers
             throw new Exception("something went wrong");
         }
 
+        [HttpGet("details/{id}")] //route parameter => https://localhost:[port]/api/values/details/1
+        public IActionResult GetById(int id)
+        {
+            return Ok(id);
+        }
+
+        [HttpGet("details")] //query parameter => https://localhost:[port]/api/values/details?id=1
+        public IActionResult GetByIdQuery(int id)
+        {
+            return Ok(id);
+        }
+
     }
 }
