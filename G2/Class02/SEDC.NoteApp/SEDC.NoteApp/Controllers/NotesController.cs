@@ -13,5 +13,19 @@ namespace SEDC.NoteApp.Controllers
             var response = StaticDb.SimpleNotes;
             return Ok(response);
         }
+
+        [HttpPost]
+        public IActionResult Post([FromBody] Note note) 
+        {
+            StaticDb.SimpleNotes.Add(note.NoteName);
+            return StatusCode(StatusCodes.Status201Created, note);
+        }
     }
+
+    public class Note 
+    {
+        public string NoteName { get; set; }
+    }
+
+
 }
