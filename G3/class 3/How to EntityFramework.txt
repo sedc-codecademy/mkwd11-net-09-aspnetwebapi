@@ -1,0 +1,48 @@
+Microsoft docs -> https://learn.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro?view=aspnetcore-7.0
+Pre set 
+Have entites/domain models
+
+SET UP
+1. In the data/DAL install 
+ - Microsoft.EntityFrameworkCore
+ - Microsoft.EntityFrameworkCore.Relational
+ - Microsoft.EntityFrameworkCore.SqlServer
+
+2. Create DbContext class usually named ApplicationDbContext
+ The context class represent the database in C# world.
+3. ApplicationDbContext inherits from dbContext and has a constructor with DbContextOptions
+
+4. Add tables with DbSet -> public DbSet<User> Users { get; set; }
+
+5. Optional configuration in ApplicationDbContext
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+        }
+
+Configure data access
+
+In web project install
+- Microsoft.EntityFrameworkCore.SqlServer // zavisi od bazata koja ja koristime
+- Microsoft.EntityFrameworkCore.Tools
+in program.cs
+
+set up connection string in appsettings.json
+in format : 
+ "ConnectionStrings": {
+    "DefaultConnection": "Data Source=localhost\\SQLEXPRESS;Initial Catalog=Pizza;Integrated Security=True; TrustServerCertificate=True"
+  }
+in program cs we get the connection string using 
+builder.Configuration.GetConnectionString("DefaultConnection")
+and pass it too AddSqlServer
+
+
+ADD MIGRATIONS
+
+GoTo Tools -> Nuget Package manager -> Package Manager Console
+
+Pick DAL project as default project
+add protected empty constructor in entities
+Type `add-migration` "[MigrationName]" // Init
+This creates the migrations
+
+And to apply the migrations to the database use `update-database`
