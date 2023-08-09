@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Notes.Api.Data;
 using Notes.Api.Domain;
 using Notes.Api.Models;
 
@@ -9,27 +11,30 @@ namespace Notes.Api.Controllers
     [ApiController]
     public class NoteController : ControllerBase
     {
-        private static List<Note> notes = new();
+        private readonly NotesDbContext context;
 
+        public NoteController(NotesDbContext context)
+        {
+            this.context = context;
+        }
 
         [HttpGet] // api/v1/note?title=[SomeValue]
-        public IActionResult GetNotes([FromQuery] SearchNotesModel model)
+        public async Task<IActionResult> GetNotes([FromQuery] SearchNotesModel model)
         {
-            var toReturn = notes;
+            IQueryable<Note> toReturn = context.Notes;
             if (!string.IsNullOrEmpty(model.Title))
             {
-                toReturn = notes
-                    .Where(x => x.Title.Contains(model.Title))
-                    .ToList();
+                toReturn = toReturn
+                    .Where(x => x.Title.Contains(model.Title));
             }
 
             if (!string.IsNullOrEmpty(model.Description))
             {
                 toReturn = toReturn
-                    .Where(x => x.Description?.Contains(model.Description) ?? false)
-                    .ToList();
+                    .Where(x => x.Description.Contains(model.Description));
             }
-            return Ok(toReturn);
+            var result = await toReturn.Include(x => x.Tags).AsNoTracking().ToListAsync().ConfigureAwait(false);
+            return Ok(result);
             // return StatusCode(StatusCodes.Status200OK, notes);
         }
 
@@ -37,7 +42,7 @@ namespace Notes.Api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var note = notes.FirstOrDefault(x => x.Id == id);
+            var note = context.Notes.AsNoTracking().FirstOrDefault(x => x.Id == id);
             if(note == null)
             {
                 return NotFound(); // 404
@@ -46,22 +51,20 @@ namespace Notes.Api.Controllers
         }
 
         [HttpPost] // api/v1/note
-        public IActionResult CreateNote(Note note)
+        public async Task<IActionResult> CreateNoteAsync([FromBody] string note)
         {
-
-            if(new Random().Next(3) == 1)
+            context.Notes.Add(new Note
             {
-                return Forbid();
-            }
-            note.Id = notes.Any() ? notes.Max(x => x.Id) + 1 : 1;
-            notes.Add(note);
+                Title = note,
+            });
+            await context.SaveChangesAsync();
             return Created("api/v1/note", note);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateNote(int id, Note note)
+        public async Task<IActionResult> UpdateNoteAsync(int id, Note note)
         {
-            var toUpdate = notes.FirstOrDefault(x => x.Id == id);
+            var toUpdate = await context.Notes.FirstOrDefaultAsync(x => x.Id == id);
             if(toUpdate == null)
             {
                 return NotFound();
@@ -69,26 +72,31 @@ namespace Notes.Api.Controllers
 
             toUpdate.Title = note.Title;
             toUpdate.Description = note.Description;
-
+            await context.SaveChangesAsync();
             return Ok(note);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
-            var note = notes.FirstOrDefault(x => x.Id == id);
+            var note = await context.Notes.FirstOrDefaultAsync(x => x.Id == id);
             if(note == null)
             {
                 return NotFound();
             }
-            notes.Remove(note);
+            context.Notes.Remove(note);
+            await context.SaveChangesAsync();
             return Ok(note);
         }
 
         [HttpGet("{id}/tags")] //api/v1/note
         public IActionResult GetTags(int id)
         {
-            var note = notes.FirstOrDefault(x => x.Id == id);
+            var note = context
+                .Notes
+                .Include(x => x.Tags)
+                .AsNoTracking()
+                .FirstOrDefault(x => x.Id == id);
             if(note == null)
             {
                 return NotFound();
@@ -97,14 +105,17 @@ namespace Notes.Api.Controllers
         }
 
         [HttpPost("{id}/tags")]
-        public IActionResult CreateTag(int id, [FromBody] Tag tag)
+        public async Task<IActionResult> CreateTag(int id, [FromBody] Tag tag)
         {
             if (string.IsNullOrEmpty(tag.Name))
             {
                 return BadRequest();
             }
 
-            var note = notes.FirstOrDefault(x => x.Id == id);
+            var note = await context
+                .Notes
+                .Include(x => x.Tags)
+                .FirstOrDefaultAsync(x => x.Id == id);
             if(note == null)
             {
                 return NotFound();
@@ -115,24 +126,28 @@ namespace Notes.Api.Controllers
                 return BadRequest("Can not create duplicate tags");
             }
             note.Tags.Add(tag);
+            await context.SaveChangesAsync();
 
             return Created($"api/v1/note/{note.Id}/tags", tag);
         }
 
         [HttpPut("{id}/tags/{tagId}")]
-        public IActionResult UpdateTag(int id, int tagId, [FromBody] string name)
+        public async Task<IActionResult> UpdateTagAsync(int id, int tagId, [FromBody] string name)
         {
             if (string.IsNullOrEmpty(name))
             {
                 return BadRequest();
             }
 
-            var note = notes.FirstOrDefault(x => x.Id == id);
+            var note = context
+                .Notes
+                .Include(x => x.Tags)
+                .FirstOrDefault(x => x.Id == id);
             if(note == null)
             {
                 return NotFound("Note doesn't exist");
             }
-            var tag = note.Tags.FirstOrDefault(x => x.Id == tagId);
+            var tag =  note.Tags.FirstOrDefault(x => x.Id == tagId);
 
             if(tag == null)
             {
@@ -140,13 +155,17 @@ namespace Notes.Api.Controllers
             }
 
             tag.Name = name;
+            await context.SaveChangesAsync();
             return Ok(tag);
         }
 
         [HttpDelete("{id}/tags/{tagId}")]
-        public IActionResult DeleteTag(int id, int tagId)
+        public async Task<IActionResult> DeleteTag(int id, int tagId)
         {
-            var note = notes.FirstOrDefault(x => x.Id == id);
+            var note = await context
+                .Notes
+                .Include(x => x.Tags)
+                .FirstOrDefaultAsync(x => x.Id == id);
             if (note == null)
             {
                 return NotFound("Note doesn't exist");
@@ -158,6 +177,7 @@ namespace Notes.Api.Controllers
                 return NotFound("Tag doesn't exist");
             }
             note.Tags.Remove(tag);
+            await context.SaveChangesAsync();
             return Ok(tag);
         }
     }
