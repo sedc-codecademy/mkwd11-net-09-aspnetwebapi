@@ -5,7 +5,7 @@ namespace NotesApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class NotesController : ControllerBase
+    public class NotesController : ControllerBase //https://localhost:[port]/api/notes
     {
         [HttpGet]
         public ActionResult<List<string>> Get()
@@ -54,6 +54,54 @@ namespace NotesApp.Controllers
             }
 
             return Ok($"Returning the note with id {noteId} for user with userId {userId}");
+        }
+
+        //[HttpPost] //Sync way of reading the body
+        //public IActionResult AddNewNote()
+        //{
+        //    try
+        //    {
+        //        using (StreamReader reader = new StreamReader(Request.Body))
+        //        {
+        //            string note = reader.ReadToEnd();
+
+        //            if (note == null || note == string.Empty)
+        //            {
+        //                return BadRequest("The note should have some value");
+        //            }
+
+        //            StaticDb.Notes.Add(note);
+        //            return Ok($"New note: '{note}' has been added");
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "An error ocurred, try again later");
+        //    }
+        //}
+
+        [HttpPost]
+        public async Task<IActionResult> AddNewNote()
+        {
+            try
+            {
+                using (StreamReader reader = new StreamReader(Request.Body))
+                {
+                    string note = await reader.ReadToEndAsync();
+
+                    if (note == null || note == string.Empty)
+                    {
+                        return BadRequest("The note should have some value");
+                    }
+
+                    StaticDb.Notes.Add(note);
+                    return Ok($"New note: '{note}' has been added");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error ocurred, try again later");
+            }
         }
     }
 }
