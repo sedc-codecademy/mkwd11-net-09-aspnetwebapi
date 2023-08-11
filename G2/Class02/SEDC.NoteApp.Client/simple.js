@@ -14,17 +14,21 @@ let getAllNotes = async () => {
 
 let createNewNote = async () => {
 
+    //data for transfer
     var note = {
-        noteName: "some test note"
+        noteName: "random note name"
     }
 
-    let response = await fetch(url, {
+    //request settings/options
+    var options = {
         method: 'POST',
         headers: {
             'Content-Type': "application/json",
         },
         body: JSON.stringify(note)
-    })
+    }
+
+    let response = await fetch(url, options)
 
     let data = await response.json()
     console.log(data)
