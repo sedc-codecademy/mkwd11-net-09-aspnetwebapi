@@ -143,5 +143,74 @@ namespace SEDC.NotesAndTagsApp.Controllers
         {
             return Ok();
         }
+
+        //HEADER PARAMETERS
+
+        [HttpGet("header")]
+        public IActionResult GetHeader([FromHeader(Name = "TestHeader")] string testHeader) 
+        {
+            return Ok(testHeader);
+        }
+
+
+        [HttpGet("userAgent")]
+        public IActionResult GetUserAgentHeader([FromHeader(Name = "User-Agent")] string userAgent) 
+        {
+            return Ok(userAgent);
+        }
+
+        //BODY PARAMETERS
+
+        [HttpPost]
+        public IActionResult PostNote([FromBody] Note note) 
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(note.Text)) 
+                {
+                    return BadRequest("Note text must not be empty");
+                }
+
+                if (note.Tags == null || note.Tags.Count == 0) 
+                {
+                    return BadRequest("Note must contain tags.");
+                }
+
+                StaticDb.Notes.Add(note);
+                return StatusCode(StatusCodes.Status201Created, "Note Created");
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred! Contact the admin!");
+            }
+        }
+
+        [HttpPut("updateNote/{index}")]
+        public IActionResult UpdateNote([FromRoute] int index,
+                                        [FromBody] Tag tag) 
+        {
+            try
+            {
+                if (index < 0) 
+                {
+                    return BadRequest("The index can not be negative.");
+                }
+
+                if (index >= StaticDb.Notes.Count) 
+                {
+                    return NotFound($"There is not resource on index {index}");
+                }
+
+                var note = StaticDb.Notes[index];
+                note.Tags.Add(tag);
+
+                return StatusCode(StatusCodes.Status204NoContent, "Note updated!");
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred! Contact the admin!");
+            }
+        }
+
     }
 }
