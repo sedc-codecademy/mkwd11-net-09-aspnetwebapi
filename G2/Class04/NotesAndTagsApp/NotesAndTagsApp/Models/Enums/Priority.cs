@@ -1,6 +1,6 @@
 ﻿namespace NotesAndTagsApp.Models.Enums
 {
-    public enum PriorityEnum
+    public enum Priority
     {
         Low = 1,
         Medium = 2,
