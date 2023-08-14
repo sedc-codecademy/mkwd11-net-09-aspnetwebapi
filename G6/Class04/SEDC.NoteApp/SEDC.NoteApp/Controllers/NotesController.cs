@@ -1,16 +1,17 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SEDC.NotesAndTagsApp2.DTOs;
-using SEDC.NotesAndTagsApp2.Models;
+using SEDC.NoteApp.DTOs;
+using SEDC.NoteApp.Models;
 
-namespace SEDC.NotesAndTagsApp2.Controllers
+namespace SEDC.NoteApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class NotesController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<List<NoteDto>> Get()
+        
+        [HttpGet] //http://localhost:[port]/api/Notes
+        public ActionResult<List<NoteDto>> GetNotes()
         {
             try
             {
@@ -21,34 +22,32 @@ namespace SEDC.NotesAndTagsApp2.Controllers
                     Text = x.Text,
                     User = $"{x.User.FirstName} {x.User.LastName}",
                     Tags = x.Tags.Select(t => t.Name).ToList()
-                }).ToList();
 
+                }).ToList();
                 return Ok(notes);
             }
-            catch
-            {
+            catch {
+
                 //log
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occured, contact the admin!");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occured, contact the admin");
             }
         }
 
+        //http://localhost:[port]/api/Notes/2
         [HttpGet("{id}")]
         public ActionResult<NoteDto> GetNoteById(int id)
         {
             try
             {
-                if (id < 0)
+                if(id < 0)
                 {
                     return BadRequest("The id can not be negative!");
                 }
 
-                //try to find the note by id
                 Note noteDb = StaticDb.Notes.FirstOrDefault(x => x.Id == id);
-                if (noteDb == null)
+                if(noteDb == null)
                 {
-                    //404
                     return NotFound($"Note with id {id} does not exist!");
-
                 }
 
                 var noteDto = new NoteDto
@@ -63,13 +62,13 @@ namespace SEDC.NotesAndTagsApp2.Controllers
             catch
             {
                 //log
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occured, contact the admin!");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occured, contact the admin");
             }
         }
 
-
-        [HttpGet("findById")] //http://localhost:[port]/api/notes/findById?id=2
-        public ActionResult<NoteDto> FindById(int id) //id is a query string param
+        //http://localhost:[port]/api/Notes/findById?id=1
+        [HttpGet("findById")]
+        public ActionResult<NoteDto> FindById(int id)
         {
             try
             {
@@ -78,13 +77,10 @@ namespace SEDC.NotesAndTagsApp2.Controllers
                     return BadRequest("The id can not be negative!");
                 }
 
-                //try to find the note by id
                 Note noteDb = StaticDb.Notes.FirstOrDefault(x => x.Id == id);
                 if (noteDb == null)
                 {
-                    //404
                     return NotFound($"Note with id {id} does not exist!");
-
                 }
 
                 var noteDto = new NoteDto
@@ -99,96 +95,17 @@ namespace SEDC.NotesAndTagsApp2.Controllers
             catch
             {
                 //log
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occured, contact the admin!");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occured, contact the admin");
             }
         }
 
-        [HttpPut]
-        public IActionResult Put([FromBody] UpdateNoteDto updateNoteDto)
+        [HttpGet("user/{userId}")]
+        public ActionResult<List<NoteDto>> FindNoteByUser(int userId)
         {
             try
             {
-                //validations
-                Note noteDb = StaticDb.Notes.FirstOrDefault(x => x.Id == updateNoteDto.Id);
-                if (noteDb == null)
-                {
-                    return NotFound($"Note with id {updateNoteDto.Id} was not found!");
-                }
-
-                if (string.IsNullOrEmpty(updateNoteDto.Text))
-                {
-                    return BadRequest($"Text is a required field");
-                }
-
-                User userDb = StaticDb.Users.FirstOrDefault(x => x.Id == updateNoteDto.UserId);
-                if (userDb == null)
-                {
-                    return NotFound($"User with id {updateNoteDto.UserId} was not found!");
-                }
-
-                List<Tag> tags = new List<Tag>();
-                foreach (int tagId in updateNoteDto.TagIds)
-                {
-                    Tag tagDb = StaticDb.Tags.FirstOrDefault(x => x.Id == tagId);
-                    if (tagDb == null)
-                    {
-                        return NotFound($"Tag with id {tagId} was not found!");
-                    }
-                    tags.Add(tagDb);
-                }
-
-                //update
-                noteDb.Text = updateNoteDto.Text;
-                noteDb.Priority = updateNoteDto.Priority;
-                noteDb.User = userDb;
-                noteDb.UserId = userDb.Id;
-                noteDb.Tags = tags;
-
-                //return result
-                return StatusCode(StatusCodes.Status204NoContent, "Note updated");
-            }
-            catch
-            {
-                //log
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occured, contact the admin!");
-            }
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult DeleteById(int id)
-        {
-            try
-            {
-                if (id <= 0)
-                {
-                    return BadRequest("Id has invalid value");
-                }
-
-                Note noteDb = StaticDb.Notes.FirstOrDefault(x => x.Id == id);
-                if (noteDb == null)
-                {
-                    //404
-                    return NotFound($"Note with id {id} was not found!");
-                }
-
-                StaticDb.Notes.Remove(noteDb);
-                return Ok();
-            }
-            catch
-            {
-                //log
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occured, contact the admin!");
-            }
-        }
-
-        [HttpGet("user/{userId}")] //route params
-        public ActionResult<List<NoteDto>> GetNotesByUser(int userId)
-        {
-            try
-            {
-                //if no notes are found for the userId, userNotes will be an empty collection
-                var userNotes = StaticDb.Notes.Where(x => x.UserId == userId).ToList();
-                var userNotesDto = userNotes.Select(x => new NoteDto
+                var userNotes = StaticDb.Notes.Where(x=>x.UserId == userId).ToList();
+                var userNotesDto = userNotes.Select(x=> new NoteDto
                 {
                     Priority = x.Priority,
                     Text = x.Text,
@@ -201,8 +118,84 @@ namespace SEDC.NotesAndTagsApp2.Controllers
             catch
             {
                 //log
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occured, contact the admin!");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occured, contact the admin");
             }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteById(int id)
+        {
+            try
+            {
+                if(id < 0)
+                {
+                    return BadRequest("Id has invalid value");
+                }
+
+                Note noteDb = StaticDb.Notes.FirstOrDefault(x => x.Id == id);
+                if(noteDb == null)
+                {
+                    return NotFound($"Note with id {id} was not found!");
+                }
+
+                StaticDb.Notes.Remove(noteDb);
+                return StatusCode(StatusCodes.Status200OK, "Note is delete");
+            }
+            catch
+            {
+                //log
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occured, contact the admin");
+            }
+        }
+
+        [HttpPut]
+        public IActionResult UpadateNote([FromBody] UpdateNoteDto updateNoteDto)
+        {
+            try
+            {
+                Note noteDb = StaticDb.Notes.FirstOrDefault(x => x.Id == updateNoteDto.Id);
+                if (noteDb == null)
+                {
+                    return NotFound($"Note with id {updateNoteDto.Id} was not found!");
+                }
+
+                if (string.IsNullOrEmpty(updateNoteDto.Text))
+                {
+                    return BadRequest("Text is a required field");
+                }
+
+                User userDb = StaticDb.Users.FirstOrDefault(x => x.Id == updateNoteDto.UserId);
+                if (userDb == null)
+                {
+                    return NotFound($"User with id {updateNoteDto.UserId} was not found!");
+                }
+
+                List<Tag> tags = new List<Tag>();
+                foreach (int tagsId in updateNoteDto.TagsId)
+                {
+                    Tag tagDb = StaticDb.Tags.FirstOrDefault(x => x.Id == tagsId);
+                    if (tagDb == null)
+                    {
+                        return NotFound($"Tag with id {tagsId} was not found!");
+                    }
+                    tags.Add(tagDb);
+                }
+
+                //update
+                noteDb.Text = updateNoteDto.Text;
+                noteDb.Priority = updateNoteDto.Priority;
+                noteDb.Tags = tags;
+                noteDb.UserId = userDb.Id;
+                noteDb.User = userDb;
+
+                return StatusCode(StatusCodes.Status204NoContent, "Note updated!");
+            }
+            catch
+            {
+                //log
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occured, contact the admin");
+            }
+
         }
 
         [HttpPost("addNote")]
@@ -210,10 +203,9 @@ namespace SEDC.NotesAndTagsApp2.Controllers
         {
             try
             {
-                //validations
                 if (string.IsNullOrEmpty(addNoteDto.Text))
                 {
-                    return BadRequest($"Text is a required field");
+                    return BadRequest("Text is a required field");
                 }
 
                 User userDb = StaticDb.Users.FirstOrDefault(x => x.Id == addNoteDto.UserId);
@@ -223,7 +215,7 @@ namespace SEDC.NotesAndTagsApp2.Controllers
                 }
 
                 List<Tag> tags = new List<Tag>();
-                foreach (int tagId in addNoteDto.TagIds)
+                foreach (int tagId in addNoteDto.TagsIds)
                 {
                     Tag tagDb = StaticDb.Tags.FirstOrDefault(x => x.Id == tagId);
                     if (tagDb == null)
@@ -236,21 +228,21 @@ namespace SEDC.NotesAndTagsApp2.Controllers
                 //create
                 Note newNote = new Note
                 {
-                    Id = ++StaticDb.Notes.LastOrDefault().Id,
+                    Id = ++StaticDb.NoteId,
                     Text = addNoteDto.Text,
                     Priority = addNoteDto.Priority,
                     User = userDb,
                     UserId = addNoteDto.UserId,
                     Tags = tags
                 };
-                StaticDb.Notes.Add(newNote);
 
+                StaticDb.Notes.Add(newNote);
                 return StatusCode(StatusCodes.Status201Created, "Note created!");
             }
             catch
             {
                 //log
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occured, contact the admin!");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occured, contact the admin");
             }
         }
     }
