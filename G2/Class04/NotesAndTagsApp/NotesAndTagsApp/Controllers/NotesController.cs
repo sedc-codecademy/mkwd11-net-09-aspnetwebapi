@@ -96,9 +96,65 @@ namespace NotesAndTagsApp.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred, please contact admin.");
             }
-        } 
+        }
 
+        [HttpGet("user/{userId}")]
+        public IActionResult GetNoteByUser([FromRoute] int userId) 
+        {
 
+            try
+            {
+                var userNotes = StaticDb.Notes.Where(note => note.User.Id == userId)
+                                          .Select(note => new NoteDto
+                                          {
+                                              Priority = note.Priority,
+                                              Text = note.Text,
+                                              User = $"{note.User.FirstName} {note.User.LastName}",
+                                              Tags = note.Tags.Select(tag => tag.Name).ToList()
+                                          }).ToList();
+
+                return Ok(userNotes);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred, please contact admin.");
+            }
+        }
+
+        [HttpPost("addNote")]
+        public IActionResult AddNote([FromBody] AddNoteDto addNoteDto) 
+        {
+            var userDb = StaticDb.Users.FirstOrDefault(user => user.Id == addNoteDto.UserId);
+            if (userDb is null) 
+            {
+                return NotFound($"User with id: {addNoteDto.UserId} was not found!");
+            }
+
+            var tags = new List<Tag>();
+            foreach (int tagId in addNoteDto.TagIds)
+            {
+                var tag = StaticDb.Tags.FirstOrDefault(tag => tag.Id == tagId);
+                if (tag is null) 
+                {
+                    return NotFound($"Tag with id {tagId} was not found");
+                }
+                tags.Add(tag);
+            }
+
+            var noteDb = new Note
+            {
+                Id = ++StaticDb.NoteId,
+                Text = addNoteDto.Text,
+                Priority = addNoteDto.Priority,
+                UserId = userDb.Id,
+                User = userDb,
+                Tags = tags
+            };
+
+            StaticDb.Notes.Add(noteDb);
+
+            return StatusCode(StatusCodes.Status201Created, "Note created!s");
+        }
 
     }
 }

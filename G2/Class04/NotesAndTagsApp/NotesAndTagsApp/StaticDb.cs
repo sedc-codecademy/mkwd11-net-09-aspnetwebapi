@@ -10,6 +10,7 @@ namespace NotesAndTagsApp
         {
             new User 
             {
+                Id = 1,
                 FirstName = "Viktor",
                 LastName = "Jakovlev",
                 Username = "vjakovlev",
@@ -17,6 +18,7 @@ namespace NotesAndTagsApp
             },
             new User
             {
+                Id = 2,
                 FirstName = "Ilija",
                 LastName = "Mitev",
                 Username = "imitev",
