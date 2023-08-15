@@ -25,4 +25,14 @@ Controller:
 
 ## All fields except description are required. If description is entered maximum length is 250 characters.
 
+## Bonus
+
+Architecture:
+* Domain (ClassLibrary)
+* DataAccess (ClassLibrary)
+    Repository (ClassLibrary)
+* Mappers (ClassLibrary)
+* DTOs (ClassLibrary)
+* Service (ClassLibrary)
+* Application (Controller)
 
