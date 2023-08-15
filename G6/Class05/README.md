@@ -30,7 +30,7 @@ Controller:
 Architecture:
 * Domain (ClassLibrary)
 * DataAccess (ClassLibrary)
-    Repository (ClassLibrary)
+    **Repository
 * Mappers (ClassLibrary)
 * DTOs (ClassLibrary)
 * Service (ClassLibrary)
