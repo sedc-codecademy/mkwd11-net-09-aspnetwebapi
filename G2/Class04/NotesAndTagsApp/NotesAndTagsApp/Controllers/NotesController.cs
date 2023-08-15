@@ -65,7 +65,7 @@ namespace NotesAndTagsApp.Controllers
             }
         }
 
-        [HttpGet("GetNoteFromId")] //https://localhost:7056/api/notes/GetNoteFromId?id=1
+        [HttpGet("findById")] //https://localhost:7056/api/notes/GetNoteFromId?id=1
         public IActionResult GetNoteFromId([FromQuery] int id) 
         {
             try

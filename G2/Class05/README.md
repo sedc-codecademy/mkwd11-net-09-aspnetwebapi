@@ -31,3 +31,5 @@ A genre contains:
 ### Length of description should be maximum of 250 characters.
 ### Return proper status codes for all the posible scenarios.
 
+### Make sure every single API endpoint works. Try to use Postman :)
+
