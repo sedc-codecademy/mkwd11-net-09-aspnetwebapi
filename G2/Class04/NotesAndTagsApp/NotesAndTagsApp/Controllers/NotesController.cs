@@ -124,36 +124,69 @@ namespace NotesAndTagsApp.Controllers
         [HttpPost("addNote")]
         public IActionResult AddNote([FromBody] AddNoteDto addNoteDto) 
         {
-            var userDb = StaticDb.Users.FirstOrDefault(user => user.Id == addNoteDto.UserId);
-            if (userDb is null) 
+            try
             {
-                return NotFound($"User with id: {addNoteDto.UserId} was not found!");
-            }
-
-            var tags = new List<Tag>();
-            foreach (int tagId in addNoteDto.TagIds)
-            {
-                var tag = StaticDb.Tags.FirstOrDefault(tag => tag.Id == tagId);
-                if (tag is null) 
+                var userDb = StaticDb.Users.FirstOrDefault(user => user.Id == addNoteDto.UserId);
+                if (userDb is null)
                 {
-                    return NotFound($"Tag with id {tagId} was not found");
+                    return NotFound($"User with id: {addNoteDto.UserId} was not found!");
                 }
-                tags.Add(tag);
+
+                var tags = new List<Tag>();
+                foreach (int tagId in addNoteDto.TagIds)
+                {
+                    var tag = StaticDb.Tags.FirstOrDefault(tag => tag.Id == tagId);
+                    if (tag is null)
+                    {
+                        return NotFound($"Tag with id {tagId} was not found");
+                    }
+                    tags.Add(tag);
+                }
+
+                var noteDb = new Note
+                {
+                    Id = ++StaticDb.NoteId,
+                    Text = addNoteDto.Text,
+                    Priority = addNoteDto.Priority,
+                    UserId = userDb.Id,
+                    User = userDb,
+                    Tags = tags
+                };
+
+                StaticDb.Notes.Add(noteDb);
+
+                return StatusCode(StatusCodes.Status201Created, "Note created!s");
             }
-
-            var noteDb = new Note
+            catch (Exception)
             {
-                Id = ++StaticDb.NoteId,
-                Text = addNoteDto.Text,
-                Priority = addNoteDto.Priority,
-                UserId = userDb.Id,
-                User = userDb,
-                Tags = tags
-            };
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred, please contact admin.");
+            }
+        }
 
-            StaticDb.Notes.Add(noteDb);
+        [HttpDelete("{id}")]
+        public IActionResult DeleteById([FromRoute] int id) 
+        {
+            try
+            {
+                if (id <= 0)
+                {
+                    return BadRequest("The id can not be negative!");
+                }
 
-            return StatusCode(StatusCodes.Status201Created, "Note created!s");
+                var noteDb = StaticDb.Notes.FirstOrDefault(note => note.Id == id);
+
+                if (noteDb is null) 
+                {
+                    return NotFound($"Note with id {id} was not found!");
+                }
+
+                StaticDb.Notes.Remove(noteDb);
+                return Ok("Note deleted");
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred, please contact admin.");
+            }
         }
 
     }
