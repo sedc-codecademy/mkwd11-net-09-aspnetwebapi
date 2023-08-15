@@ -3,11 +3,11 @@
 We need to create an API that keeps and manages our favorite movies. It should have the option to:
 
 A movie contains:
-* id
-* title - required field
-* description
-* year - required field
-* genre - required field
+* id (integer) 
+* title (string) - required field
+* description (string)
+* year (integer) - required field
+* genre (Enum) - required field
 
 * keep data in a fixed static class
 
