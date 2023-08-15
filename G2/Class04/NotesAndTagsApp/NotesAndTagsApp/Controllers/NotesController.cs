@@ -65,7 +65,7 @@ namespace NotesAndTagsApp.Controllers
             }
         }
 
-        [HttpGet("findById")] //https://localhost:7056/api/notes/GetNoteFromId?id=1
+        [HttpGet("findById")] //https://localhost:7056/api/notes/findById?id=1
         public IActionResult GetNoteFromId([FromQuery] int id) 
         {
             try
@@ -98,7 +98,7 @@ namespace NotesAndTagsApp.Controllers
             }
         }
 
-        [HttpGet("user/{userId}")]
+        [HttpGet("user/{userId}")] //https://localhost:7056/api/notes/user/1
         public IActionResult GetNoteByUser([FromRoute] int userId) 
         {
 
@@ -121,7 +121,7 @@ namespace NotesAndTagsApp.Controllers
             }
         }
 
-        [HttpPost("addNote")]
+        [HttpPost] //https://localhost:7056/api/notes
         public IActionResult AddNote([FromBody] AddNoteDto addNoteDto) 
         {
             try
@@ -163,7 +163,7 @@ namespace NotesAndTagsApp.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")] //https://localhost:7056/api/notes/1
         public IActionResult DeleteById([FromRoute] int id) 
         {
             try
@@ -189,5 +189,31 @@ namespace NotesAndTagsApp.Controllers
             }
         }
 
+        [HttpPut]
+        public IActionResult UpdateNote([FromBody] UpdateNoteDto updateNoteDto) 
+        {
+            var noteDb = StaticDb.Notes.FirstOrDefault(note => note.Id == updateNoteDto.Id);
+            if (noteDb is null)
+            {
+                return NotFound($"Note with id {updateNoteDto.Id} was not found!");
+            }
+
+            var newTags = new List<Tag>();
+            foreach (int tagId in updateNoteDto.TagIds)
+            {
+                var tag = StaticDb.Tags.FirstOrDefault(tag => tag.Id == tagId);
+                if (tag is null)
+                {
+                    return NotFound($"Tag with id {tagId} was not found");
+                }
+                newTags.Add(tag);
+            }
+
+            noteDb.Text = updateNoteDto.Text;
+            noteDb.Priority = updateNoteDto.Priority;
+            noteDb.Tags = newTags;
+
+            return StatusCode(StatusCodes.Status204NoContent, "NoteUpdated");
+        }
     }
 }
