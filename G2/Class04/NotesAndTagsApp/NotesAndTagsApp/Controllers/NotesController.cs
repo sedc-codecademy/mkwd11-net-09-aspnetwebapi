@@ -198,20 +198,23 @@ namespace NotesAndTagsApp.Controllers
                 return NotFound($"Note with id {updateNoteDto.Id} was not found!");
             }
 
-            var newTags = new List<Tag>();
-            foreach (int tagId in updateNoteDto.TagIds)
-            {
-                var tag = StaticDb.Tags.FirstOrDefault(tag => tag.Id == tagId);
-                if (tag is null)
-                {
-                    return NotFound($"Tag with id {tagId} was not found");
-                }
-                newTags.Add(tag);
-            }
+            //var newTags = new List<Tag>();
+            //foreach (int tagId in updateNoteDto.TagIds)
+            //{
+            //    var tag = StaticDb.Tags.FirstOrDefault(tag => tag.Id == tagId);
+            //    if (tag is null)
+            //    {
+            //        return NotFound($"Tag with id {tagId} was not found");
+            //    }
+            //    newTags.Add(tag);
+            //}
+
+            //one liner approach // will return empty list of tags if the IDs are incorect
+            var newTagsOneLiner = StaticDb.Tags.Where(t => updateNoteDto.TagIds.Contains(t.Id)).ToList();
 
             noteDb.Text = updateNoteDto.Text;
             noteDb.Priority = updateNoteDto.Priority;
-            noteDb.Tags = newTags;
+            noteDb.Tags = newTagsOneLiner;
 
             return StatusCode(StatusCodes.Status204NoContent, "NoteUpdated");
         }
