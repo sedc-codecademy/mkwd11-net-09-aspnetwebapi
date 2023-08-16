@@ -1,0 +1,8 @@
+ - Create web project (web app mvc) -> Pizza.Web
+ - Create BLL and DAL -> Pizza.BLL(where services,mappers and models/dtos live) Pizza.DAL(Repository, Entites/Domain models)
+ - Create entites(DAL) -> Pizza, Order, User and BaseEntity( has PK)
+ - Create repositories that manipulate entites -> CRUD
+ - Create CRUD services(BLL) which use repositories and external services -> services are manager classes that use other dependecies to do the work
+ - Services return models/DTOs not entities
+ - Create controller and views -> use scaffolding while learning
+ - Hook up everything with DI -> Program.cs or Extension methods for adding services and repositories
