@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SEDC.NotesAppScaffolded.DataAccess\SEDC.NotesAppScaffolded.DataAccess.csproj" />
+    <ProjectReference Include="..\SEDC.DataAnnotations.Helpers\SEDC.DataAnnotations.Helpers.csproj" />
   </ItemGroup>
 
 </Project>
