@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "0ebe8e74-d480-4572-92ef-754767ecafdc",
+		"name": "NotesApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14571427"
+	},
+	"item": [
+		{
+			"name": "Get All Notes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7034/api/Notes",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7034",
+					"path": [
+						"api",
+						"Notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Note By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/Notes/4",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Notes",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Note Filter",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7034/api/Notes/filter?text=gym&priority=1&tagName=exercise",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7034",
+					"path": [
+						"api",
+						"Notes",
+						"filter"
+					],
+					"query": [
+						{
+							"key": "text",
+							"value": "gym"
+						},
+						{
+							"key": "priority",
+							"value": "1"
+						},
+						{
+							"key": "tagName",
+							"value": "exercise"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Note",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"Relax\",\r\n  \"priority\": 1,\r\n  \"tagIds\": [\r\n    4,5\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7034/api/Notes/addNote",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7034",
+					"path": [
+						"api",
+						"Notes",
+						"addNote"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Note",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 5,\r\n  \"text\": \"string\",\r\n  \"priority\": 1,\r\n  \"tagIds\": [\r\n    1,3\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7034/api/Notes/updateNote",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7034",
+					"path": [
+						"api",
+						"Notes",
+						"updateNote"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Note",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7034/api/Notes/deleteNote?id=4",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7034",
+					"path": [
+						"api",
+						"Notes",
+						"deleteNote"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
