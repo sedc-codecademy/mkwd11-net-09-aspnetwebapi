@@ -12,5 +12,9 @@ namespace SEDC.NoteApp.Domain.Models
         public string Text { get; set; }
         public Priority Priority { get; set; }
         public Tag Tag { get; set; }
+
+        //navigation properties
+        public int UserId { get; set; }
+        public User User { get; set; }
     }
 }

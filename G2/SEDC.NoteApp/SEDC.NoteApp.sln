@@ -5,6 +5,10 @@ VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.NoteApp.Api", "SEDC.NoteApp.Api\SEDC.NoteApp.Api.csproj", "{5FF91EE8-12E8-4986-8A25-EA41C663B4DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.NoteApp.Domain", "SEDC.NoteApp.Domain\SEDC.NoteApp.Domain.csproj", "{2C4DAE8C-18F1-4364-89AF-73EC79A52BD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.NoteApp.DataAccess", "SEDC.NoteApp.DataAccess\SEDC.NoteApp.DataAccess.csproj", "{1ACE9E7C-C019-4B7B-9214-3EF7D33A2E55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{5FF91EE8-12E8-4986-8A25-EA41C663B4DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FF91EE8-12E8-4986-8A25-EA41C663B4DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FF91EE8-12E8-4986-8A25-EA41C663B4DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C4DAE8C-18F1-4364-89AF-73EC79A52BD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C4DAE8C-18F1-4364-89AF-73EC79A52BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C4DAE8C-18F1-4364-89AF-73EC79A52BD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C4DAE8C-18F1-4364-89AF-73EC79A52BD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ACE9E7C-C019-4B7B-9214-3EF7D33A2E55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ACE9E7C-C019-4B7B-9214-3EF7D33A2E55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ACE9E7C-C019-4B7B-9214-3EF7D33A2E55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ACE9E7C-C019-4B7B-9214-3EF7D33A2E55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
