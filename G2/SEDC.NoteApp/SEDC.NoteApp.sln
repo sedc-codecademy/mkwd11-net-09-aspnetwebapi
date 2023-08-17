@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.NoteApp.Domain", "SEDC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.NoteApp.DataAccess", "SEDC.NoteApp.DataAccess\SEDC.NoteApp.DataAccess.csproj", "{1ACE9E7C-C019-4B7B-9214-3EF7D33A2E55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.NoteApp.Helpers", "SEDC.NoteApp.Helpers\SEDC.NoteApp.Helpers.csproj", "{E3C2AB24-74B8-4B0F-B716-21A0B762965F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{1ACE9E7C-C019-4B7B-9214-3EF7D33A2E55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1ACE9E7C-C019-4B7B-9214-3EF7D33A2E55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1ACE9E7C-C019-4B7B-9214-3EF7D33A2E55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3C2AB24-74B8-4B0F-B716-21A0B762965F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3C2AB24-74B8-4B0F-B716-21A0B762965F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3C2AB24-74B8-4B0F-B716-21A0B762965F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3C2AB24-74B8-4B0F-B716-21A0B762965F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
