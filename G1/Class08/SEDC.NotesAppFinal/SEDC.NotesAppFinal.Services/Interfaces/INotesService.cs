@@ -7,5 +7,7 @@
         Task<NoteDto> GetNoteAsync(int id);
 
         Task<List<NoteDto>> GetAllNotesAsync();
+
+        Task CreateNoteAsync(CreateNoteDto note);
     }
 }

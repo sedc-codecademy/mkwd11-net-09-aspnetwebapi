@@ -15,6 +15,13 @@ namespace SEDC.NotesAppFinal.Services.Implementations
             _noteRepository = noteRepository;
         }
 
+        public async Task CreateNoteAsync(CreateNoteDto note)
+        {
+            Note noteEntity = note.MapToNote();
+
+            await _noteRepository.CreateAsync(noteEntity);
+        }
+
         public async Task<List<NoteDto>> GetAllNotesAsync()
         {
             List<Note> notes = await _noteRepository.GetAllAsync();

@@ -59,5 +59,24 @@ namespace SEDC.NotesAppFinal.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<ActionResult> CreateNoteAsync([FromBody] CreateNoteDto createNoteDto)
+        {
+            try
+            {
+                if(createNoteDto == null || createNoteDto.UserId == 0 || createNoteDto.Text == null || createNoteDto.Tag == 0 || createNoteDto.Priority == 0)
+                {
+                    return BadRequest("Invalid input");
+                }
+
+                await _notesService.CreateNoteAsync(createNoteDto);
+
+                return StatusCode(StatusCodes.Status201Created, "Note added");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Please contact the support team.");
+            }
+        }
     }
 }

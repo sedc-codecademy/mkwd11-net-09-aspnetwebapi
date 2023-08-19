@@ -13,9 +13,10 @@ namespace SEDC.NotesAppFinal.DataAccess.Implementations
             this._context = _context;
         }
 
-        public Task CreateAsync(Note entity)
+        public async Task CreateAsync(Note entity)
         {
-            throw new NotImplementedException();
+            await _context.Notes.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
         public Task DeleteAsync(int id)

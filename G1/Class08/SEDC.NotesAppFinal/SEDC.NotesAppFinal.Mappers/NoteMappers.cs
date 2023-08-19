@@ -16,5 +16,16 @@
                 User = note.User == null ? new UserDto() : note.User.MapToUserDto()
             };
         }
+
+        public static Note MapToNote(this CreateNoteDto note)
+        {
+            return new Note()
+            {
+                Text = note.Text,
+                Priority = note.Priority,
+                Tag = note.Tag,
+                UserId = note.UserId
+            };
+        }
     }
 }
