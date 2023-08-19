@@ -22,6 +22,28 @@ namespace SEDC.NotesAppFinal.Services.Implementations
             await _noteRepository.CreateAsync(noteEntity);
         }
 
+        public async Task DeleteNoteAsync(int id)
+        {
+            await _noteRepository.DeleteAsync(id);
+        }
+
+        public async Task EditNoteAsync(CreateNoteDto createNoteDto, int id)
+        {
+            Note noteDb = await _noteRepository.GetByIdAsync(id);
+
+            if(noteDb == null)
+            {
+                throw new Exception("Note not found");
+            }
+
+            noteDb.Text = createNoteDto.Text;
+            noteDb.Priority = createNoteDto.Priority;
+            noteDb.Tag = createNoteDto.Tag;
+            noteDb.UserId = createNoteDto.UserId;
+
+            await _noteRepository.UpdateAsync(noteDb);
+        }
+
         public async Task<List<NoteDto>> GetAllNotesAsync()
         {
             List<Note> notes = await _noteRepository.GetAllAsync();

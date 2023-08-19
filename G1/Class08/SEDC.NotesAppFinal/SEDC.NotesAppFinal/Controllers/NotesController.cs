@@ -64,7 +64,7 @@ namespace SEDC.NotesAppFinal.Controllers
         {
             try
             {
-                if(createNoteDto == null || createNoteDto.UserId == 0 || createNoteDto.Text == null || createNoteDto.Tag == 0 || createNoteDto.Priority == 0)
+                if (createNoteDto == null || createNoteDto.UserId == 0 || createNoteDto.Text == null || createNoteDto.Tag == 0 || createNoteDto.Priority == 0)
                 {
                     return BadRequest("Invalid input");
                 }
@@ -72,6 +72,46 @@ namespace SEDC.NotesAppFinal.Controllers
                 await _notesService.CreateNoteAsync(createNoteDto);
 
                 return StatusCode(StatusCodes.Status201Created, "Note added");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Please contact the support team.");
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteNoteAsync(int id)
+        {
+            try
+            {
+                if (id == 0)
+                {
+                    return BadRequest("Invalid input");
+                }
+
+                await _notesService.DeleteNoteAsync(id);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Please contact the support team.");
+            }
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<ActionResult> EditNoteAsync([FromBody] CreateNoteDto createNoteDto, int id)
+        {
+            try
+            {
+                if (id == 0)
+                {
+                    return BadRequest("Invalid input");
+                }
+
+                await _notesService.EditNoteAsync(createNoteDto, id);
+
+                return Ok();
             }
             catch (Exception ex)
             {

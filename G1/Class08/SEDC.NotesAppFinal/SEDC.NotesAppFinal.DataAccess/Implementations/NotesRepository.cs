@@ -19,9 +19,12 @@ namespace SEDC.NotesAppFinal.DataAccess.Implementations
             await _context.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            Note noteDb = await GetByIdAsync(id);
+
+            _context.Remove(noteDb);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<List<Note>> GetAllAsync()
@@ -36,9 +39,10 @@ namespace SEDC.NotesAppFinal.DataAccess.Implementations
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Task UpdateAsync(Note entity)
+        public async Task UpdateAsync(Note entity)
         {
-            throw new NotImplementedException();
+            _context.Notes.Update(entity);
+            await _context.SaveChangesAsync();
         }
     }
 }
