@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SEDC.NoteApp.Domain.Enums;
 using SEDC.NoteApp.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -61,6 +62,27 @@ namespace SEDC.NoteApp.DataAccess
                .HasMaxLength(30)
                .IsRequired();
 
+            //SEED
+            modelBuilder.Entity<User>()
+                .HasData(new User
+                {
+                    Id = 1,
+                    FirstName = "Viktor",
+                    LastName = "Jakovlev",
+                    Username = "vjakovlev",
+                    Age = 34,
+                    Notes = new List<Note>()
+                });
+
+            modelBuilder.Entity<Note>()
+                .HasData(new Note
+                {
+                    Id = 1,
+                    Text = "note text",
+                    Priority = Priority.Low,
+                    Tag = Tag.SocialLife,
+                    UserId = 1 
+                });
         }
     }
 }
