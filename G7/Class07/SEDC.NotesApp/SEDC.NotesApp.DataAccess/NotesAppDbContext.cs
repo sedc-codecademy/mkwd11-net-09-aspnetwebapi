@@ -1,21 +1,13 @@
-﻿using Azure;
-using Microsoft.EntityFrameworkCore;
-using SEDC.NotesAppFluentApi.Domain.Enums;
-using SEDC.NotesAppFluentApi.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using SEDC.NotesApp.Domain.Enums;
+using SEDC.NotesApp.Domain.Models;
 
-namespace SEDC.NotesAppFluentApi.DataAccess
+namespace SEDC.NotesApp.DataAccess
 {
     public class NotesAppDbContext : DbContext
     {
-
         public NotesAppDbContext(DbContextOptions options) : base(options)
         {
-
         }
 
         public DbSet<User> Users { get; set; }
@@ -41,21 +33,10 @@ namespace SEDC.NotesAppFluentApi.DataAccess
                 .HasMaxLength(100);
 
             modelBuilder.Entity<Note>()
-                .Ignore(x => x.Priority); 
-            
-            modelBuilder.Entity<Note>()
                 .HasOne(note => note.User)
                 .WithMany(user => user.Notes)
                 .HasForeignKey(note => note.UserId);
 
-            //this does the same job just the starting point is diferent
-            //we only need one way relation
-            //modelBuilder.Entity<User>()
-            //    .HasMany(user => user.Notes)
-            //    .WithOne(note => note.User)
-            //    .HasForeignKey(note => note.UserId);
-
-            //SEED...
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
@@ -77,7 +58,6 @@ namespace SEDC.NotesAppFluentApi.DataAccess
                         UserId = 1
                     }
                 );
-
         }
     }
 }
