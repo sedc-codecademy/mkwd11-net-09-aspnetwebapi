@@ -2,17 +2,20 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SEDC.NotesAppFluentApi.DataAccess;
+using SEDC.NotesApp.DataAccess;
 
 #nullable disable
 
-namespace SEDC.NotesAppFluentApi.DataAccess.Migrations
+namespace SEDC.NotesApp.DataAccess.Migrations
 {
     [DbContext(typeof(NotesAppDbContext))]
-    partial class NotesAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230822173232_InitMigration")]
+    partial class InitMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,13 +24,16 @@ namespace SEDC.NotesAppFluentApi.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("SEDC.NotesAppFluentApi.Domain.Models.Note", b =>
+            modelBuilder.Entity("SEDC.NotesApp.Domain.Models.Note", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
 
                     b.Property<int>("Tag")
                         .HasColumnType("int");
@@ -49,13 +55,14 @@ namespace SEDC.NotesAppFluentApi.DataAccess.Migrations
                         new
                         {
                             Id = 1,
+                            Priority = 3,
                             Tag = 1,
                             Text = "Go to work",
                             UserId = 1
                         });
                 });
 
-            modelBuilder.Entity("SEDC.NotesAppFluentApi.Domain.Models.User", b =>
+            modelBuilder.Entity("SEDC.NotesApp.Domain.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -95,9 +102,9 @@ namespace SEDC.NotesAppFluentApi.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SEDC.NotesAppFluentApi.Domain.Models.Note", b =>
+            modelBuilder.Entity("SEDC.NotesApp.Domain.Models.Note", b =>
                 {
-                    b.HasOne("SEDC.NotesAppFluentApi.Domain.Models.User", "User")
+                    b.HasOne("SEDC.NotesApp.Domain.Models.User", "User")
                         .WithMany("Notes")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -106,7 +113,7 @@ namespace SEDC.NotesAppFluentApi.DataAccess.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SEDC.NotesAppFluentApi.Domain.Models.User", b =>
+            modelBuilder.Entity("SEDC.NotesApp.Domain.Models.User", b =>
                 {
                     b.Navigation("Notes");
                 });

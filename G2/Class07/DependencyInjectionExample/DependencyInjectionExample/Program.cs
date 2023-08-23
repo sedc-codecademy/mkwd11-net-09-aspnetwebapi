@@ -1,11 +1,5 @@
-//nuget packages
-//Microsoft.EntityFrameworkCore.Design
-
-//EF commands
-// 1. add-migration [migration_name] (example: initial)
-// 2. update-database
-
-using SEDC.NoteApp.Helpers;
+using Services;
+using Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,14 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var cs = builder.Configuration.GetConnectionString("DefaultConnection");
-
-// without extension method
-//DependencyInjectionHelper.InjectDbContext(builder.Services, cs);
-
-//with extension method
-builder.Services.InjectDbContext(cs);
-builder.Services.RegisterRepositories();
+//builder.Services.AddTransient<ITestService, TestService>();
+builder.Services.RegisterServices();
 
 var app = builder.Build();
 

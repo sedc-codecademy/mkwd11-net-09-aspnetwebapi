@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SEDC.NotesAppFluentApi.DataAccess;
+using SEDC.NotesApp.DataAccess;
 
 #nullable disable
 
-namespace SEDC.NotesAppFluentApi.DataAccess.Migrations
+namespace SEDC.NotesApp.DataAccess.Migrations
 {
     [DbContext(typeof(NotesAppDbContext))]
     partial class NotesAppDbContextModelSnapshot : ModelSnapshot
@@ -21,7 +21,7 @@ namespace SEDC.NotesAppFluentApi.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("SEDC.NotesAppFluentApi.Domain.Models.Note", b =>
+            modelBuilder.Entity("SEDC.NotesApp.Domain.Models.Note", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -29,12 +29,16 @@ namespace SEDC.NotesAppFluentApi.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
+
                     b.Property<int>("Tag")
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -49,13 +53,30 @@ namespace SEDC.NotesAppFluentApi.DataAccess.Migrations
                         new
                         {
                             Id = 1,
+                            Priority = 3,
+                            Tag = 2,
+                            Text = "Buy groceries",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Priority = 2,
                             Tag = 1,
-                            Text = "Go to work",
+                            Text = "Finish project report",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Priority = 1,
+                            Tag = 3,
+                            Text = "Call friends",
                             UserId = 1
                         });
                 });
 
-            modelBuilder.Entity("SEDC.NotesAppFluentApi.Domain.Models.User", b =>
+            modelBuilder.Entity("SEDC.NotesApp.Domain.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -63,22 +84,18 @@ namespace SEDC.NotesAppFluentApi.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -88,16 +105,22 @@ namespace SEDC.NotesAppFluentApi.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            Age = 27,
-                            FirstName = "Dragan",
-                            LastName = "Manaskov",
-                            Username = "dmanaskov"
+                            FirstName = "John",
+                            LastName = "Doe",
+                            Username = "john_doe"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FirstName = "Jane",
+                            LastName = "Smith",
+                            Username = "jane_smith"
                         });
                 });
 
-            modelBuilder.Entity("SEDC.NotesAppFluentApi.Domain.Models.Note", b =>
+            modelBuilder.Entity("SEDC.NotesApp.Domain.Models.Note", b =>
                 {
-                    b.HasOne("SEDC.NotesAppFluentApi.Domain.Models.User", "User")
+                    b.HasOne("SEDC.NotesApp.Domain.Models.User", "User")
                         .WithMany("Notes")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -106,7 +129,7 @@ namespace SEDC.NotesAppFluentApi.DataAccess.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SEDC.NotesAppFluentApi.Domain.Models.User", b =>
+            modelBuilder.Entity("SEDC.NotesApp.Domain.Models.User", b =>
                 {
                     b.Navigation("Notes");
                 });

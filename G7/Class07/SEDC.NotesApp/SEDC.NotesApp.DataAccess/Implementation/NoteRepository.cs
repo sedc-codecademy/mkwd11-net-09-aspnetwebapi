@@ -1,0 +1,49 @@
+﻿using Microsoft.EntityFrameworkCore;
+using SEDC.NotesApp.Domain.Models;
+
+namespace SEDC.NotesApp.DataAccess.Implementation
+{
+    public class NoteRepository : IRepository<Note>
+    {
+        private NotesAppDbContext _dbContext;
+
+        public NoteRepository(NotesAppDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+        public void Add(Note entity)
+        {
+            _dbContext.Notes.Add(entity);
+            _dbContext.SaveChanges();
+        }
+
+        public void Delete(Note entity)
+        {
+            var note = GetById(entity.Id);
+
+            _dbContext.Notes.Remove(note);
+            _dbContext.SaveChanges();
+        }
+
+        public List<Note> GetAll()
+        {
+            return _dbContext.Notes.Include(x => x.User).ToList();
+        }
+
+        public Note GetById(int id)
+        {
+            var note = _dbContext.Notes.Include(x => x.User).FirstOrDefault(x => x.Id == id);
+
+            if (note == null)
+                throw new KeyNotFoundException($"Note with id {id} is not found");
+
+            return note;
+        }
+
+        public void Update(Note entity)
+        {
+            _dbContext.Notes.Update(entity);
+            _dbContext.SaveChanges();
+        }
+    }
+}
