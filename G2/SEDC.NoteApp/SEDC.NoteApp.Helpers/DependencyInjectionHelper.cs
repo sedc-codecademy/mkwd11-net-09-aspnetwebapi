@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using SEDC.NoteApp.DataAccess;
 using SEDC.NoteApp.DataAccess.EntityImplementation;
 using SEDC.NoteApp.Domain.Models;
+using SEDC.NoteApp.Services.Abstraction;
+using SEDC.NoteApp.Services.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +25,7 @@ namespace SEDC.NoteApp.Helpers
         public static void RegisterRepositories(this IServiceCollection services) 
         {
             services.AddTransient<IRepository<Note>, NoteRepository>();
+            services.AddTransient<IRepository<User>, UserRepository>();
         }
     }
 }

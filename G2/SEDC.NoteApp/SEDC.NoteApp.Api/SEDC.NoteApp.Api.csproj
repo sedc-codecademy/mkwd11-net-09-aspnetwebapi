@@ -15,11 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\SEDC.NoteApp.Helpers\SEDC.NoteApp.Helpers.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SEDC.NoteApp.Helpers\SEDC.NoteApp.Helpers.csproj" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
