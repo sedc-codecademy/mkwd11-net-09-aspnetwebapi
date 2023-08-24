@@ -44,6 +44,11 @@ namespace SEDC.NotesApp.DataAccess.Implementation
             return note;
         }
 
+        public Note GetByTag(string tag)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Note entity)
         {
             _dbContext.Notes.Update(entity);

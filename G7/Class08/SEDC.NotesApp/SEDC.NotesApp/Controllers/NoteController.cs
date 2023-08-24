@@ -47,6 +47,25 @@ namespace SEDC.NotesApp.Controllers
             }
         }
 
+        [HttpGet("filter/{tag}")]
+        public IActionResult GetByTag(string tag)
+        {
+            try
+            {
+                var note = _noteService.GetByTag(tag);
+
+                return Ok(note);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error happend");
+            }
+        }
+
         [HttpPost]
         public IActionResult Add(AddNoteDto note)
         {

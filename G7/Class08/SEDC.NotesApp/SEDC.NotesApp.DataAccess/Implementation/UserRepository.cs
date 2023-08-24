@@ -45,5 +45,10 @@ namespace SEDC.NotesApp.DataAccess.Implementation
             _dbContext.Users.Remove(user);
             _dbContext.SaveChanges();
         }
+
+        public User GetByTag(string tag)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -8,5 +8,7 @@
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);
+
+        T GetByTag(string tag);
     }
 }
