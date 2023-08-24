@@ -16,7 +16,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-DependencyInjectionHelper.InjectDbContext(builder.Services);
+var cs = builder.Configuration.GetConnectionString("DefaultConnection");
+
+// without extension method
+//DependencyInjectionHelper.InjectDbContext(builder.Services, cs);
+
+//with extension method
+builder.Services.InjectDbContext(cs);
+builder.Services.RegisterRepositories();
 
 var app = builder.Build();
 
