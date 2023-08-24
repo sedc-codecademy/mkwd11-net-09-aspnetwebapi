@@ -20,5 +20,22 @@ namespace SEDC.NoteApp.Mappers
                 UserId = addNoteDto.UserId
             };
         }
+
+        public static NoteDto ToNoteDto(this Note note) 
+        {
+            var noteDto = new NoteDto
+            {
+                Text = note.Text,
+                Tag = note.Tag,
+                Priority = note.Priority
+            };
+
+            if (note.User is not null) 
+            {
+                noteDto.UserFullName = $"{note.User.FirstName} {note.User.LastName}";
+            }
+
+            return noteDto;
+        }
     }
 }

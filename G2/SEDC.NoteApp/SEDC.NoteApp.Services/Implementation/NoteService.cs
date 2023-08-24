@@ -47,22 +47,65 @@ namespace SEDC.NoteApp.Services.Implementation
 
         public void DeleteNote(int id)
         {
-            throw new NotImplementedException();
+            var noteFromDb = _noteRepository.GetById(id);
+
+            if (noteFromDb == null) 
+            {
+                throw new NoteDataException($"Note with id {id} does not exist");
+            }
+
+            _noteRepository.Delete(noteFromDb);
         }
 
         public List<NoteDto> GetAllNotes()
         {
-            throw new NotImplementedException();
+            var notesFromDb = _noteRepository.GetAll();
+            return notesFromDb.Select(note => note.ToNoteDto()).ToList();
         }
 
         public NoteDto GetById(int id)
         {
-            throw new NotImplementedException();
+            var noteFromDb = _noteRepository.GetById(id);
+
+            if (noteFromDb is null) 
+            {
+                throw new NoteDataException($"Note with id {id} does not exist");
+            }
+
+            return noteFromDb.ToNoteDto();
         }
 
         public void UpdateNote(UpdateNoteDto updateNoteDto)
         {
-            throw new NotImplementedException();
+            var noteFromDb = _noteRepository.GetById(updateNoteDto.Id);
+            if (noteFromDb is null) 
+            {
+                throw new NoteDataException($"Note with id {updateNoteDto.Id} does not exist");
+            }
+
+            var userDb = _userRepository.GetById(updateNoteDto.UserId);
+            if (userDb is null)
+            {
+                throw new NoteDataException($"User with id {updateNoteDto.UserId} does not exist");
+            }
+
+            if (string.IsNullOrEmpty(updateNoteDto.Text))
+            {
+                throw new NoteDataException("Text is required field");
+            }
+
+            if (updateNoteDto.Text.Length > 100)
+            {
+                throw new NoteDataException("Text can not contain more than 100 characters");
+            }
+
+            noteFromDb.Text = updateNoteDto.Text;
+            noteFromDb.Priority = updateNoteDto.Priority;
+            noteFromDb.Tag = updateNoteDto.Tag;
+            noteFromDb.UserId = updateNoteDto.UserId;
+            noteFromDb.User = userDb;
+
+            _noteRepository.Update(noteFromDb);
         }
     }
 }
