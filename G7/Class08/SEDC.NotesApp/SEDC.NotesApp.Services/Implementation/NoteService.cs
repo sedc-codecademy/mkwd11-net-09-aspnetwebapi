@@ -24,6 +24,16 @@ namespace SEDC.NotesApp.Services.Implementation
             return notes.Select(x => x.ToDto()).ToList();
         }
 
+        public NoteDto GetById(int id)
+        {
+            var note = _notesRepository.GetById(id);
+
+            if (note == null)
+                throw new KeyNotFoundException($"Note with id {id} is not found");
+
+            return note.ToDto();
+        }
+
         public void AddNote(AddNoteDto note)
         {
             //1. validation

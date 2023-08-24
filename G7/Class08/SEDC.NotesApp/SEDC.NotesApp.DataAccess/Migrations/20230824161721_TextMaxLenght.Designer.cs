@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SEDC.NotesApp.DataAccess;
 
@@ -10,9 +11,11 @@ using SEDC.NotesApp.DataAccess;
 namespace SEDC.NotesApp.DataAccess.Migrations
 {
     [DbContext(typeof(NotesAppDbContext))]
-    partial class NotesAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230824161721_TextMaxLenght")]
+    partial class TextMaxLenght
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
