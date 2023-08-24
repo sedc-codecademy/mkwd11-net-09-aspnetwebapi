@@ -62,7 +62,8 @@ namespace SEDC.NotesApp.DataAccess.Implementation
 
             SqlCommand command = new SqlCommand();
             command.Connection = sqlConnection;
-            command.CommandText = $"Select * From dbo.Notes Where Id = {id}";
+            command.CommandText = $"Select * From dbo.Notes Where Id = @param1";
+            command.Parameters.AddWithValue("@param1", id);
 
             List<Note> notes = new List<Note>();
 
