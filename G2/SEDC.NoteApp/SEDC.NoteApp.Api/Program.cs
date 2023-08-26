@@ -24,6 +24,7 @@ var cs = builder.Configuration.GetConnectionString("DefaultConnection");
 //with extension method
 builder.Services.InjectDbContext(cs);
 builder.Services.RegisterRepositories();
+builder.Services.RegisterServices();
 
 var app = builder.Build();
 
