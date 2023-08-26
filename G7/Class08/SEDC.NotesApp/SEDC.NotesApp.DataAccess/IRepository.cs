@@ -9,6 +9,7 @@
         void Update(T entity);
         void Delete(T entity);
 
+        //This method is custom method for showing sql injection attack
         T GetByTag(string tag);
     }
 }
