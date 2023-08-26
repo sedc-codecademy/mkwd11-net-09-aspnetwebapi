@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,7 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SEDC.MoviesApp.DataAccess\SEDC.MoviesApp.DataAccess.csproj" />
+    <ProjectReference Include="..\SEDC.MoviesApp.Dtos\SEDC.MoviesApp.Dtos.csproj" />
+    <ProjectReference Include="..\SEDC.MoviesApp.Enums\SEDC.MoviesApp.Enums.csproj" />
+    <ProjectReference Include="..\SEDC.MoviesApp.Services\SEDC.MoviesApp.Services.csproj" />
   </ItemGroup>
 
 </Project>

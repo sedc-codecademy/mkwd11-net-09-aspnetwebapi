@@ -1,4 +1,4 @@
-﻿namespace SEDC.MoviesApp.Models.Enums
+﻿namespace SEDC.MoviesApp.Enums
 {
     public enum GenreEnum
     {

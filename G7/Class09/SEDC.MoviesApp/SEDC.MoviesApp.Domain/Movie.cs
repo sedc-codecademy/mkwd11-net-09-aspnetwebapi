@@ -1,16 +1,14 @@
-﻿using SEDC.MoviesApp.Models.Enums;
+﻿using SEDC.MoviesApp.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SEDC.MoviesApp.DTOs
+namespace SEDC.MoviesApp.Domain
 {
-    public class UpdateMovieDtoDataAnnotaions
+    public class Movie : BaseEntity
     {
         [Required]
-        [Range(1, int.MaxValue)]
-        public int Id { get; set; }
-        [Required]
         public string Title { get; set; }
-        [MaxLength(250, ErrorMessage = "Description must be less than 251 characters")]
+        [MaxLength(250, ErrorMessage = "Max length is 250 characters")]
         public string Description { get; set; }
         [Required]
         public int Year { get; set; }

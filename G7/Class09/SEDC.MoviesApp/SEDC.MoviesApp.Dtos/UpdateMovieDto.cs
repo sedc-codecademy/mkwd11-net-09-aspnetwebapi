@@ -1,9 +1,11 @@
-﻿using SEDC.MoviesApp.Models.Enums;
+﻿
+using SEDC.MoviesApp.Enums;
 
-namespace SEDC.MoviesApp.DTOs
+namespace SEDC.MoviesApp.Dtos
 {
-    public class MovieDto
+    public class UpdateMovieDto
     {
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public int Year { get; set; }

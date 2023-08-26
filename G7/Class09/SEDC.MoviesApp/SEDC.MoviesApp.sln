@@ -3,7 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.MoviesApp", "SEDC.MoviesApp\SEDC.MoviesApp.csproj", "{D86A2F54-538D-45D7-AFBA-55D5919FF367}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEDC.MoviesApp", "SEDC.MoviesApp\SEDC.MoviesApp.csproj", "{D86A2F54-538D-45D7-AFBA-55D5919FF367}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.MoviesApp.DataAccess", "SEDC.MoviesApp.DataAccess\SEDC.MoviesApp.DataAccess.csproj", "{794A13E2-FA67-4E2D-9542-8B79E090EA59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.MoviesApp.Services", "SEDC.MoviesApp.Services\SEDC.MoviesApp.Services.csproj", "{9E6B23D3-92EE-40D2-9116-E793A9E9CF37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.MoviesApp.Domain", "SEDC.MoviesApp.Domain\SEDC.MoviesApp.Domain.csproj", "{EA179048-8A4C-47F3-9110-7729CC66952F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.MoviesApp.Dtos", "SEDC.MoviesApp.Dtos\SEDC.MoviesApp.Dtos.csproj", "{9F31195E-5E31-412F-B8E2-8D751F305651}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.MoviesApp.Mappers", "SEDC.MoviesApp.Mappers\SEDC.MoviesApp.Mappers.csproj", "{D661D4AD-D4F2-4F73-8543-3E3BC73CF901}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.MoviesApp.Enums", "SEDC.MoviesApp.Enums\SEDC.MoviesApp.Enums.csproj", "{814AF741-AABB-4362-88CE-FF6A5DDB9269}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +27,30 @@ Global
 		{D86A2F54-538D-45D7-AFBA-55D5919FF367}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D86A2F54-538D-45D7-AFBA-55D5919FF367}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D86A2F54-538D-45D7-AFBA-55D5919FF367}.Release|Any CPU.Build.0 = Release|Any CPU
+		{794A13E2-FA67-4E2D-9542-8B79E090EA59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{794A13E2-FA67-4E2D-9542-8B79E090EA59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{794A13E2-FA67-4E2D-9542-8B79E090EA59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{794A13E2-FA67-4E2D-9542-8B79E090EA59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E6B23D3-92EE-40D2-9116-E793A9E9CF37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E6B23D3-92EE-40D2-9116-E793A9E9CF37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E6B23D3-92EE-40D2-9116-E793A9E9CF37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E6B23D3-92EE-40D2-9116-E793A9E9CF37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA179048-8A4C-47F3-9110-7729CC66952F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA179048-8A4C-47F3-9110-7729CC66952F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA179048-8A4C-47F3-9110-7729CC66952F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA179048-8A4C-47F3-9110-7729CC66952F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F31195E-5E31-412F-B8E2-8D751F305651}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F31195E-5E31-412F-B8E2-8D751F305651}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F31195E-5E31-412F-B8E2-8D751F305651}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F31195E-5E31-412F-B8E2-8D751F305651}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D661D4AD-D4F2-4F73-8543-3E3BC73CF901}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D661D4AD-D4F2-4F73-8543-3E3BC73CF901}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D661D4AD-D4F2-4F73-8543-3E3BC73CF901}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D661D4AD-D4F2-4F73-8543-3E3BC73CF901}.Release|Any CPU.Build.0 = Release|Any CPU
+		{814AF741-AABB-4362-88CE-FF6A5DDB9269}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{814AF741-AABB-4362-88CE-FF6A5DDB9269}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{814AF741-AABB-4362-88CE-FF6A5DDB9269}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{814AF741-AABB-4362-88CE-FF6A5DDB9269}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
