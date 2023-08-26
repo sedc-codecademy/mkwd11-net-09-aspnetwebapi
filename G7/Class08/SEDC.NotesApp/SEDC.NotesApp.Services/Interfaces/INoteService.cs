@@ -6,5 +6,7 @@ namespace SEDC.NotesApp.Services.Interfaces
     {
         List<NoteDto> GetAll();
         void AddNote(AddNoteDto note);
+        NoteDto GetById(int id);
+        NoteDto GetByTag(string tag);
     }
 }

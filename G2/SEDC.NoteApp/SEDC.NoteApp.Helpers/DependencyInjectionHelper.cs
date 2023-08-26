@@ -27,5 +27,10 @@ namespace SEDC.NoteApp.Helpers
             services.AddTransient<IRepository<Note>, NoteRepository>();
             services.AddTransient<IRepository<User>, UserRepository>();
         }
+
+        public static void RegisterServices(this IServiceCollection services) 
+        {
+            services.AddTransient<INoteService, NoteService>();
+        }
     }
 }
