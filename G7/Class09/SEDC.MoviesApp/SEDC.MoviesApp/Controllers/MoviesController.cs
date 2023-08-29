@@ -199,51 +199,28 @@ namespace SEDC.MoviesApp.Controllers
         //}
 
 
-        //[HttpPut("update")]
-        //public IActionResult UpdateMovie([FromBody] UpdateMovieDto updateMovieDto)
-        //{
-        //    try
-        //    {
-        //        var movieDb = StaticDb.Movies.FirstOrDefault(x => x.Id == updateMovieDto.Id);
-        //        if(movieDb is null)
-        //        {
-        //            return NotFound($"Movie with id {updateMovieDto.Id} does not exist!");
-        //        }
+        [HttpPut("update")]
+        public IActionResult UpdateMovie([FromBody] UpdateMovieDto updateMovieDto)
+        {
+            try
+            {
+                _movieService.Update(updateMovieDto);
 
-        //        if (string.IsNullOrEmpty(updateMovieDto.Title))
-        //        {
-        //            return BadRequest("Title must not be empty");
-        //        }
-
-        //        if (updateMovieDto.Description.Length > 250)
-        //        {
-        //            return BadRequest($"Description can't be longer than 250 characters!. Your descriptions has {updateMovieDto.Description.Length} characters");
-        //        }
-
-        //        if (!Enum.IsDefined(typeof(GenreEnum), updateMovieDto.Genre))
-        //        {
-        //            return BadRequest("Invalid genre value");
-        //        }
-
-        //        if (DateTime.Now.Year < updateMovieDto.Year || updateMovieDto.Year < 1887)
-        //        {
-        //            return BadRequest($"Please enter a year between 1888-{DateTime.Now.Year}");
-        //        }
-
-        //        movieDb.Title = updateMovieDto.Title;
-        //        movieDb.Description = updateMovieDto.Description;
-        //        movieDb.Genre = updateMovieDto.Genre;
-        //        movieDb.Year = updateMovieDto.Year;
-
-        //        return StatusCode(StatusCodes.Status204NoContent, "Movie updated");
-
-        //    }
-        //    catch
-        //    {
-        //        return StatusCode(StatusCodes.Status500InternalServerError, "Server error occured!");
-        //    }
-
-        //}
+                return StatusCode(StatusCodes.Status204NoContent, "Movie updated");
+            }
+            catch(KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch(ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Server error occured!");
+            }
+        }
 
         //[HttpPut("update/data")]
         //public IActionResult UpdateMovieWithDataAnnotations([FromBody] UpdateMovieDtoDataAnnotaions updateMovieDto)

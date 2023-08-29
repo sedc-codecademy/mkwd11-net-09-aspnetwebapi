@@ -5,5 +5,6 @@ namespace SEDC.MoviesApp.Services
     public interface IMovieService
     {
         List<MovieDto> GetAll();
+        void Update(UpdateMovieDto updateMovieDto);
     }
 }
