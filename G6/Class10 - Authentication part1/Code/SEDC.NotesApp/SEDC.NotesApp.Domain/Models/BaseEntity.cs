@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SEDC.NoteApp.Domain.Models
+namespace SEDC.NotesApp.Domain.Models
 {
     public class BaseEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int Id { get;set; }
     }
 }
