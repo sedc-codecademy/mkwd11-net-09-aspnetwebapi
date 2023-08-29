@@ -36,11 +36,19 @@ namespace SEDC.NoteApp.DataAccess.DapperImplementation
             return noteFromDb;
         }
 
+        //public void Add(Note entity)
+        //{
+        //    using SqlConnection sqlConnection = new SqlConnection(_connectionString);
+        //    //sqlConnection.Insert(entity);
+        //    var query = @"INSERT INTO dbo.Notes (Text, Priority, Tag, UserId) VALUES (@Text, @Priority, @Tag, @UserId)";
+        //    var rowsAffected = sqlConnection.Execute(query, entity);
+        //}
+
+        // Add new Note by calling stored procedure
         public void Add(Note entity)
         {
             using SqlConnection sqlConnection = new SqlConnection(_connectionString);
-            //sqlConnection.Insert(entity);
-            var query = @"INSERT INTO dbo.Notes (Text, Priority, Tag, UserId) VALUES (@Text, @Priority, @Tag, @UserId)";
+            var query = @"EXEC dbo.SP_AddNote @Text, @Priority, @Tag, @UserId";
             var rowsAffected = sqlConnection.Execute(query, entity);
         }
 

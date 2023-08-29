@@ -1,14 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 using Microsoft.Extensions.Configuration;
 using SEDC.NoteApp.Domain.Enums;
 using SEDC.NoteApp.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SEDC.NoteApp.DataAccess.AdoNetImplementation
 {
