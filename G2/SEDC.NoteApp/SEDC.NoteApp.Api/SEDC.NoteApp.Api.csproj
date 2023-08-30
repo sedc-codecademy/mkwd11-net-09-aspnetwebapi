@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SEDC.NoteApp.Helpers\SEDC.NoteApp.Helpers.csproj" />
   </ItemGroup>
 

@@ -28,6 +28,10 @@ namespace SEDC.NotesApp.DataAccess.Implementation
         public List<Note> GetAll()
         {
             return _dbContext.Notes.Include(x => x.User).ToList();
+
+            //Select * 
+            //From Notes n 
+            //Inner Join Users u ON n.UserId = u.Id
         }
 
         public Note GetById(int id)

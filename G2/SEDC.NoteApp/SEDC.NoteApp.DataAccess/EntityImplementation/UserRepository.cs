@@ -9,6 +9,12 @@ namespace SEDC.NoteApp.DataAccess.EntityImplementation
 {
     public class UserRepository : IRepository<User>
     {
+        private readonly NoteAppDbContext _noteAppDbContext;
+        public UserRepository(NoteAppDbContext noteAppDbContext)
+        {
+            _noteAppDbContext = noteAppDbContext;
+        }
+
         public void Add(User entity)
         {
             throw new NotImplementedException();
@@ -26,7 +32,8 @@ namespace SEDC.NoteApp.DataAccess.EntityImplementation
 
         public User GetById(int id)
         {
-            throw new NotImplementedException();
+            return _noteAppDbContext.Users
+                        .SingleOrDefault(user => user.Id == id);
         }
 
         public void Update(User entity)

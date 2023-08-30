@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SEDC.NoteApp.DataAccess\SEDC.NoteApp.DataAccess.csproj" />
+    <ProjectReference Include="..\SEDC.NoteApp.Services\SEDC.NoteApp.Services.csproj" />
   </ItemGroup>
 
 </Project>
