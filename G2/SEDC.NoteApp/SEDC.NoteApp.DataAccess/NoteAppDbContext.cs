@@ -63,26 +63,27 @@ namespace SEDC.NoteApp.DataAccess
                .IsRequired();
 
             //SEED
-            modelBuilder.Entity<User>()
-                .HasData(new User
-                {
-                    Id = 1,
-                    FirstName = "Viktor",
-                    LastName = "Jakovlev",
-                    Username = "vjakovlev",
-                    Age = 34,
-                    Notes = new List<Note>()
-                });
+            //modelBuilder.Entity<User>()
+            //    .HasData(new User
+            //    {
+            //        Id = 1,
+            //        FirstName = "Viktor",
+            //        LastName = "Jakovlev",
+            //        Username = "vjakovlev",
+            //        Age = 34,
+            //        Password = "123"
+            //        Notes = new List<Note>()
+            //    });
 
-            modelBuilder.Entity<Note>()
-                .HasData(new Note
-                {
-                    Id = 1,
-                    Text = "note text",
-                    Priority = Priority.Low,
-                    Tag = Tag.SocialLife,
-                    UserId = 1 
-                });
+            //modelBuilder.Entity<Note>()
+            //    .HasData(new Note
+            //    {
+            //        Id = 1,
+            //        Text = "note text",
+            //        Priority = Priority.Low,
+            //        Tag = Tag.SocialLife,
+            //        UserId = 1 
+            //    });
         }
     }
 }
