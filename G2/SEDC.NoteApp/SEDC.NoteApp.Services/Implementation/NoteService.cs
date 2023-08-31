@@ -1,5 +1,6 @@
 ﻿using SEDC.NoteApp.CustomExceptions;
 using SEDC.NoteApp.DataAccess;
+using SEDC.NoteApp.DataAccess.Abstraction;
 using SEDC.NoteApp.Domain.Models;
 using SEDC.NoteApp.DTOs;
 using SEDC.NoteApp.Mappers;
@@ -10,10 +11,10 @@ namespace SEDC.NoteApp.Services.Implementation
     public class NoteService : INoteService
     {
         private readonly IRepository<Note> _noteRepository;
-        private readonly IRepository<User> _userRepository;
+        private readonly IUserRepository _userRepository;
 
         public NoteService(IRepository<Note> noteRepository,
-                           IRepository<User> userRepository)
+                           IUserRepository userRepository)
         {
             _noteRepository = noteRepository;
             _userRepository = userRepository;
