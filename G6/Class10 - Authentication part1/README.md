@@ -59,7 +59,7 @@ A JWT or JSON Web Token is a json that follows certain rules, is digitally signe
   * sub - subject of the token ( Some data that is important for the business logic )
   * aud - audience of the token ( Who is the token meant for )
 * Signature - a unique signature hashed with encryption written in the header. The input data that is hashed is the header, payload and a secret ( a string that only the server knows )
- ![jwt token](https://cask.scotch.io/2014/11/json-web-token-overview1.png)
+ ![jwt token](https://cloud.google.com/static/apigee/docs/api-platform/images/jwt-format.png)
 
 ### Hashing 🔽
 
