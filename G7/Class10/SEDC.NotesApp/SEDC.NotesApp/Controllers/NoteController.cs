@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SEDC.NotesApp.Dtos;
 using SEDC.NotesApp.Services.Interfaces;
 
 namespace SEDC.NotesApp.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class NoteController : ControllerBase
@@ -13,6 +15,7 @@ namespace SEDC.NotesApp.Controllers
         {
             _noteService = noteService;
         }
+
 
         [HttpGet]
         public IActionResult GetAll()
@@ -27,7 +30,7 @@ namespace SEDC.NotesApp.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error happend");
             }
         }
-
+        [Authorize(Roles = $"Admin, Member")]
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -66,6 +69,7 @@ namespace SEDC.NotesApp.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Add(AddNoteDto note)
         {

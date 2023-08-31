@@ -1,10 +1,14 @@
-﻿using SEDC.NotesApp.DataAccess;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using SEDC.NotesApp.DataAccess;
 using SEDC.NotesApp.Domain.Models;
 using SEDC.NotesApp.Dtos;
 using SEDC.NotesApp.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using XSystem.Security.Cryptography;
@@ -14,10 +18,12 @@ namespace SEDC.NotesApp.Services.Implementation
     public class UserService : IUserService
     {
         private IRepository<User> _userRepository;
+        private readonly IConfiguration _configuration;
 
-        public UserService(IRepository<User> userRepository)
+        public UserService(IRepository<User> userRepository, IConfiguration configuration)
         {
             _userRepository = userRepository;
+            _configuration = configuration;
         }
 
         public string LoginUser(LoginUserDto loginUserDto)
@@ -36,14 +42,41 @@ namespace SEDC.NotesApp.Services.Implementation
 
             string stringHash = Convert.ToHexString(hash);
 
-            var user = _userRepository.GetAll().Where(x => x.Username == loginUserDto.Username && x.Password == stringHash).FirstOrDefault();
+            var user = _userRepository.GetAll().Where(x => x.Username == loginUserDto.Username
+            && x.Password == stringHash).FirstOrDefault();
 
             if(user == null)
             {
                 throw new ArgumentException("Password or username is wrong");
             }
 
-            return $"{user.FirstName} {user.LastName}";
+            //GENERATE JWT TOKEN
+            JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+
+            //byte[] secretKeyByte = Encoding.ASCII.GetBytes("This is our secret key");
+            byte[] secretKeyByte = Encoding.ASCII.GetBytes(_configuration["Appsettings:SecretKey"]);
+
+            SecurityTokenDescriptor securityTokenDescriptor = new SecurityTokenDescriptor
+            {
+                Expires = DateTime.UtcNow.AddHours(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKeyByte), SecurityAlgorithms.HmacSha256Signature),
+                Subject = new ClaimsIdentity(
+                    new[]
+                    {
+                        new Claim(ClaimTypes.NameIdentifier, user.Username),
+                        new Claim("FullName", $"{user.FirstName} {user.LastName}"),
+                        //form database
+                        //new Claim(ClaimTypes.Role, user.Role),
+                        new Claim(ClaimTypes.Role, "Member"),
+                        new Claim(ClaimTypes.Role, "Admin"),
+                    })
+            };
+
+            SecurityToken token = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
+
+            string tokenString = jwtSecurityTokenHandler.WriteToken(token);
+
+            return tokenString;
         }
 
         public void RegisterUser(RegisterUserDto registerUserDto)
