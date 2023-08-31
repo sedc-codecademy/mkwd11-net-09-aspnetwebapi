@@ -27,11 +27,11 @@ namespace SEDC.NoteApp.Helpers
         public static void RegisterRepositories(this IServiceCollection services) 
         {
             // Dapper Implementation
-            services.AddTransient<IRepository<Note>, NoteDapperRepository>();
+            //services.AddTransient<IRepository<Note>, NoteDapperRepository>();
             // AdoNet Implementation
             //services.AddTransient<IRepository<Note>, NoteAdoNetRepository>();
             // EntityFramework Implementation
-            //services.AddTransient<IRepository<Note>, NoteRepository>();
+            services.AddTransient<IRepository<Note>, NoteRepository>();
             services.AddTransient<IRepository<User>, UserRepository>();
         }
 
