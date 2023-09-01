@@ -1,10 +1,13 @@
-﻿using SEDC.NoteApp.CryptoService;
+﻿using Microsoft.IdentityModel.Tokens;
+using SEDC.NoteApp.CryptoService;
 using SEDC.NoteApp.CustomExceptions;
 using SEDC.NoteApp.DataAccess.Abstraction;
 using SEDC.NoteApp.Domain.Models;
 using SEDC.NoteApp.DTOs;
 using SEDC.NoteApp.Services.Abstraction;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace SEDC.NoteApp.Services.Implementation
 {
@@ -34,11 +37,26 @@ namespace SEDC.NoteApp.Services.Implementation
 
             //Generate JWT Token
             JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+            byte[] secretKeyBytes = Encoding.ASCII.GetBytes("Our very secret secret key");
 
+            SecurityTokenDescriptor securityTokenDescriptor = new SecurityTokenDescriptor
+            {
+                Expires = DateTime.UtcNow.AddDays(3),
+                //signature configuration
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKeyBytes), SecurityAlgorithms.HmacSha256Signature),
+                //payload
+                Subject = new ClaimsIdentity(
+                    new[] 
+                    {
+                        new Claim("userFullName", $"{userFromDb.FirstName} {userFromDb.LastName}"),
+                        new Claim("userId", $"{userFromDb.Id}"),
+                        new Claim(ClaimTypes.Name, userFromDb.Username)
+                    }
+                )
+            };
 
-
-
-            return "";
+            SecurityToken token = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
+            return jwtSecurityTokenHandler.WriteToken(token);
         }
 
         public void RegisterUser(RegisterUserDto registerUserDto)
