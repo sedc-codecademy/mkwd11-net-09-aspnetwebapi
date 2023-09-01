@@ -11,8 +11,8 @@ using SEDC.NoteApp.DataAccess;
 namespace SEDC.NoteApp.DataAccess.Migrations
 {
     [DbContext(typeof(NoteAppDbContext))]
-    [Migration("20230822162036_seed")]
-    partial class seed
+    [Migration("20230901170825_seed_data")]
+    partial class seed_data
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -81,6 +81,10 @@ namespace SEDC.NoteApp.DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -97,6 +101,7 @@ namespace SEDC.NoteApp.DataAccess.Migrations
                             Age = 34,
                             FirstName = "Viktor",
                             LastName = "Jakovlev",
+                            Password = "N?K????4???B??7?",
                             Username = "vjakovlev"
                         });
                 });
