@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="XAct.Core.PCL" Version="0.0.5014" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SEDC.NoteApp.CustomExceptions\SEDC.NoteApp.CustomExceptions.csproj" />
     <ProjectReference Include="..\SEDC.NoteApp.DataAccess\SEDC.NoteApp.DataAccess.csproj" />
     <ProjectReference Include="..\SEDC.NoteApp.Domain\SEDC.NoteApp.Domain.csproj" />

@@ -1,10 +1,10 @@
-﻿using SEDC.NoteApp.CustomExceptions;
+﻿using SEDC.NoteApp.CryptoService;
+using SEDC.NoteApp.CustomExceptions;
 using SEDC.NoteApp.DataAccess.Abstraction;
 using SEDC.NoteApp.Domain.Models;
 using SEDC.NoteApp.DTOs;
 using SEDC.NoteApp.Services.Abstraction;
-using System.Text;
-using XSystem.Security.Cryptography;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace SEDC.NoteApp.Services.Implementation
 {
@@ -25,23 +25,20 @@ namespace SEDC.NoteApp.Services.Implementation
                 throw new UserDataException("Username and password are required fields!");
             }
 
-            var mD5CryptoServiceProvider = new MD5CryptoServiceProvider();
-
-            byte[] passwordBytes = Encoding.ASCII.GetBytes(loginUserDto.Password);
-
-            byte[] hashedBytes = mD5CryptoServiceProvider.ComputeHash(passwordBytes);
-
-            string passwordHash = Encoding.ASCII.GetString(hashedBytes);
-
-            var userFromDb = _userRepository.LoginUser(loginUserDto.Username, passwordHash);
+            var userFromDb = _userRepository.LoginUser(loginUserDto.Username, StringHasher.Hash(loginUserDto.Password));
 
             if (userFromDb == null) 
             {
                 throw new UserNotFoundException("User not found!");
             }
 
-            // return token 
-            return "fake token";
+            //Generate JWT Token
+            JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+
+
+
+
+            return "";
         }
 
         public void RegisterUser(RegisterUserDto registerUserDto)
@@ -50,13 +47,7 @@ namespace SEDC.NoteApp.Services.Implementation
             ValidateUser(registerUserDto);
 
             //2. Hash password
-            var mD5CryptoServiceProvider = new MD5CryptoServiceProvider();
-
-            byte[] passwordBytes = Encoding.ASCII.GetBytes(registerUserDto.Password);
-
-            byte[] hashedBytes = mD5CryptoServiceProvider.ComputeHash(passwordBytes);
-
-            string passwordHash = Encoding.ASCII.GetString(hashedBytes);
+            var passwordHash = StringHasher.Hash(registerUserDto.Password);
 
             //3. create new user
             var user = new User
