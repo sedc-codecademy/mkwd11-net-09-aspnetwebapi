@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SEDC.NoteApp.CustomExceptions;
 using SEDC.NoteApp.DTOs;
 using SEDC.NoteApp.Services.Abstraction;
+using System.Security.Claims;
 
 namespace SEDC.NoteApp.Api.Controllers
 {
@@ -20,11 +20,14 @@ namespace SEDC.NoteApp.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get() 
+        public IActionResult Get()
         {
             try
             {
-                return Ok(_noteService.GetAllNotes());
+                var userId = User.FindFirstValue("userId");
+                var username = User.FindFirstValue(ClaimTypes.Name);
+
+                return Ok(_noteService.GetAllNotes(int.Parse(userId)));
             }
             catch (Exception ex)
             {
@@ -34,14 +37,14 @@ namespace SEDC.NoteApp.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById([FromRoute] int id) 
+        public IActionResult GetById([FromRoute] int id)
         {
             try
             {
                 var noteDto = _noteService.GetById(id);
                 return Ok(noteDto);
             }
-            catch (NoteDataException ex) 
+            catch (NoteDataException ex)
             {
                 return NotFound(ex.Message);
             }
@@ -53,7 +56,7 @@ namespace SEDC.NoteApp.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddNote([FromBody] AddNoteDto addNoteDto) 
+        public IActionResult AddNote([FromBody] AddNoteDto addNoteDto)
         {
             try
             {
@@ -72,7 +75,7 @@ namespace SEDC.NoteApp.Api.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateNote([FromBody] UpdateNoteDto updateNoteDto) 
+        public IActionResult UpdateNote([FromBody] UpdateNoteDto updateNoteDto)
         {
             try
             {
@@ -91,7 +94,7 @@ namespace SEDC.NoteApp.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteNote([FromRoute] int id) 
+        public IActionResult DeleteNote([FromRoute] int id)
         {
             try
             {

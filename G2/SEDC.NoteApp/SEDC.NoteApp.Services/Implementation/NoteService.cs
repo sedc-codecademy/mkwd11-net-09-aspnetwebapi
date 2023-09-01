@@ -58,10 +58,11 @@ namespace SEDC.NoteApp.Services.Implementation
             _noteRepository.Delete(noteFromDb);
         }
 
-        public List<NoteDto> GetAllNotes()
+        public List<NoteDto> GetAllNotes(int userId)
         {
             var notesFromDb = _noteRepository.GetAll();
-            return notesFromDb.Select(note => note.ToNoteDto()).ToList();
+            return notesFromDb.Where(note => note.UserId == userId)
+                              .Select(note => note.ToNoteDto()).ToList();
         }
 
         public NoteDto GetById(int id)
