@@ -48,6 +48,16 @@ namespace SEDC.NoteApp.DataAccess.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Notes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Priority = 1,
+                            Tag = 3,
+                            Text = "note text",
+                            UserId = 1
+                        });
                 });
 
             modelBuilder.Entity("SEDC.NoteApp.Domain.Models.User", b =>
@@ -69,6 +79,10 @@ namespace SEDC.NoteApp.DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -77,6 +91,17 @@ namespace SEDC.NoteApp.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Age = 34,
+                            FirstName = "Viktor",
+                            LastName = "Jakovlev",
+                            Password = "N?K????4???B??7?",
+                            Username = "vjakovlev"
+                        });
                 });
 
             modelBuilder.Entity("SEDC.NoteApp.Domain.Models.Note", b =>

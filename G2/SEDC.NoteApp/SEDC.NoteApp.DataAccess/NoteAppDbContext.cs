@@ -1,10 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SEDC.NoteApp.Domain.Enums;
 using SEDC.NoteApp.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SEDC.NoteApp.CryptoService;
 
 namespace SEDC.NoteApp.DataAccess
 {
@@ -14,7 +11,7 @@ namespace SEDC.NoteApp.DataAccess
     // Microsoft.EntityFrameworkCore.Tools
     public class NoteAppDbContext : DbContext
     {
-        public NoteAppDbContext(DbContextOptions options) : base(options) {}
+        public NoteAppDbContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Note> Notes { get; set; }
         public DbSet<User> Users { get; set; }
@@ -61,6 +58,30 @@ namespace SEDC.NoteApp.DataAccess
                .HasMaxLength(30)
                .IsRequired();
 
+
+
+            //SEED
+            modelBuilder.Entity<User>()
+                .HasData(new User
+                {
+                    Id = 1,
+                    FirstName = "Viktor",
+                    LastName = "Jakovlev",
+                    Username = "vjakovlev",
+                    Age = 34,
+                    Password = StringHasher.Hash("viktor123"),
+                    Notes = new List<Note>()
+                });
+
+            modelBuilder.Entity<Note>()
+                .HasData(new Note
+                {
+                    Id = 1,
+                    Text = "note text",
+                    Priority = Priority.Low,
+                    Tag = Tag.SocialLife,
+                    UserId = 1
+                });
         }
     }
 }
