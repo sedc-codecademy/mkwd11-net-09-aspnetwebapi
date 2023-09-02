@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Notes.Services.Models;
@@ -8,6 +9,7 @@ namespace Notes.Api.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    [Authorize]
     public class NoteController : ControllerBase
     {
         private readonly INoteService noteService;
@@ -27,13 +29,13 @@ namespace Notes.Api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            return Ok(noteService.GetNote(id));
+            return Ok(noteService.GetNote(new ClaimsPrincipalWrapper(User), id));
         }
 
         [HttpPost] // api/v1/note
         public IActionResult CreateNote([FromBody] CreateNoteModel note)
         {
-            NoteModel created = noteService.Create(note);
+            NoteModel created = noteService.Create(new ClaimsPrincipalWrapper(User), note);
             return Created("api/v1/note", created);
         }
 
@@ -41,13 +43,13 @@ namespace Notes.Api.Controllers
         public IActionResult UpdateNote(int id, EditNoteModel edit)
         {
             edit.Id = id;
-            return Ok(noteService.Update(edit));
+            return Ok(noteService.Update(new ClaimsPrincipalWrapper(User), edit));
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteAsync(int id)
         {
-            return Ok(noteService.Delete(id));
+            return Ok(noteService.Delete(new ClaimsPrincipalWrapper(User), id));
         }
 
         [HttpPost("{id}/tags")]

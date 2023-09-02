@@ -9,6 +9,6 @@ namespace Notes.Data.Repositories
 {
     public interface INotesRepository : IRepository<Note>
     {
-        public IEnumerable<Note> GetNotes(string? title, string? description, string orderBy = nameof(Note.Title), bool isAsc = true);
+        public IEnumerable<Note> GetNotes(int userId, string? title, string? description, string orderBy = nameof(Note.Title), bool isAsc = true);
     }
 }

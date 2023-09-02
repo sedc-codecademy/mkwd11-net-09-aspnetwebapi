@@ -12,9 +12,12 @@ namespace Notes.Data.Repositories
         {
         }
 
-        public IEnumerable<Note> GetNotes(string? title, string? description, string orderBy = nameof(Note.Title), bool isAsc = true)
+        public IEnumerable<Note> GetNotes(int userId, string? title, string? description, string orderBy = nameof(Note.Title), bool isAsc = true)
         {
-            IQueryable<Note> query = notesDbContext.Notes.Include(x => x.Tags);
+            IQueryable<Note> query = notesDbContext
+                .Notes
+                .Where(x => x.User.Id == userId)
+                .Include(x => x.Tags);
             if (!string.IsNullOrEmpty(title))
             {
                 query = query.Where(x => x.Title.Contains(title));

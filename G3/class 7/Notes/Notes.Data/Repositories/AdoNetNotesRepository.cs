@@ -1,11 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Notes.Data.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Notes.Data.Repositories
 {
@@ -22,9 +18,9 @@ namespace Notes.Data.Repositories
             var connectionString = configuration.GetConnectionString("NotesConnection");
             using var connection = new SqlConnection(connectionString);
             using var command = connection.CreateCommand();
-            command.CommandText = @"
+            command.CommandText = @$"
             Select 
-                Id, 
+                Id as {nameof(FlatNoteTag.Id)}, 
                 Title, 
                 Description,
                 t.Id as TagId,
@@ -32,40 +28,38 @@ namespace Notes.Data.Repositories
             From 
                 Notes
             Left join 
-                tag t 
+                tags t 
             on 
                 Notes.Id = t.NoteId";
             SqlDataReader? reader = command.ExecuteReader();
-            var notes = new List<Note>();
-            Note currentNote = null;
-            var tags = new List<Tag>();
+            var notes = new List<FlatNoteTag>();
 
             while (reader.Read())
             {
-                if (currentNote != null && currentNote.Id != (int)reader["Id"])
+                notes.Add(new FlatNoteTag
                 {
-                    currentNote.Tags = tags;
-                    tags.Clear();
-                    notes.Add(currentNote);
-                    currentNote = null;
-                }
-                if (currentNote == null)
-                {
-                    currentNote = new Note
-                    {
-                        Id = (int)reader["Id"],
-                        Description = reader["Description"].ToString(),
-                        Title = reader["Title"].ToString()
-                    };
-                }
-
-                tags.Add(new Tag
-                {
-                    Id = (int)reader["TagId"],
-                    Name = reader["Name"].ToString()
+                    Id = (int)reader[nameof(FlatNoteTag.Id)],
+                    Name = (string)reader["Name"],
+                    Description = (string)reader["Description"],
+                    TagId = (int)reader["TagId"],
+                    Title = (string)reader["Title"]
                 });
             }
-            return notes;
+            return notes.GroupBy(x => x.Id).Select(x =>
+            {
+                var note = new Note
+                {
+                    Id = x.First().Id,
+                    Description = x.First().Description,
+                    Title = x.First().Title,
+                    Tags = x.Select(t => new Tag
+                    {
+                        Id = t.Id,
+                        Name = t.Name,
+                    }).ToList()
+                };
+                return note;
+            });
         }
         public void Create(Note entity)
         {
@@ -102,4 +96,17 @@ namespace Notes.Data.Repositories
             throw new NotImplementedException();
         }
     }
+}
+
+public class FlatNoteTag
+{
+    public int Id { get; set; }
+
+    public string Title { get; set; }
+
+    public string? Description { get; set; }
+
+    public int TagId { get; set; }
+
+    public string Name { get; set; }
 }

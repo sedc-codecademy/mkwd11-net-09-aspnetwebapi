@@ -1,18 +1,19 @@
 ﻿using Notes.Services.Models;
+using Notes.Services.User;
 
 namespace Notes.Services.Service
 {
     public interface INoteService
     {
-        NoteModel GetNote(int id);
+        NoteModel GetNote(ICurrentUser user, int id);
 
-        IEnumerable<NoteModel> GetNotes(SearchNotesModel searchNotesModel);
+        IEnumerable<NoteModel> GetNotes(ICurrentUser user, SearchNotesModel searchNotesModel);
 
-        NoteModel Create(CreateNoteModel create);
+        NoteModel Create(ICurrentUser user, CreateNoteModel create);
 
-        NoteModel Update(EditNoteModel create);
+        NoteModel Update(ICurrentUser user, EditNoteModel create);
 
-        NoteModel Delete(int id);
+        NoteModel Delete(ICurrentUser user, int id);
 
         TagModel AddTag(int noteId, string tagName);
     

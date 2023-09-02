@@ -15,6 +15,9 @@ namespace Notes.Data.Data
 
         public DbSet<Tag> Tags { get; set; }
 
+        public DbSet<User> Users { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
