@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SEDC.NoteApp.DataAccess;
+using SEDC.NoteApp.DataAccess.Abstraction;
 using SEDC.NoteApp.DataAccess.AdoNetImplementation;
 using SEDC.NoteApp.DataAccess.DapperImplementation;
 using SEDC.NoteApp.DataAccess.EntityImplementation;
@@ -27,17 +28,18 @@ namespace SEDC.NoteApp.Helpers
         public static void RegisterRepositories(this IServiceCollection services) 
         {
             // Dapper Implementation
-            services.AddTransient<IRepository<Note>, NoteDapperRepository>();
+            //services.AddTransient<IRepository<Note>, NoteDapperRepository>();
             // AdoNet Implementation
             //services.AddTransient<IRepository<Note>, NoteAdoNetRepository>();
             // EntityFramework Implementation
-            //services.AddTransient<IRepository<Note>, NoteRepository>();
-            services.AddTransient<IRepository<User>, UserRepository>();
+            services.AddTransient<IRepository<Note>, NoteRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
         }
 
         public static void RegisterServices(this IServiceCollection services) 
         {
             services.AddTransient<INoteService, NoteService>();
+            services.AddTransient<IUserService, UserService>();
         }
     }
 }

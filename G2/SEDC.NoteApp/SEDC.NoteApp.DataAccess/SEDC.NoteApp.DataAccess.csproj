@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SEDC.NoteApp.CryptoService\SEDC.NoteApp.CryptoService.csproj" />
     <ProjectReference Include="..\SEDC.NoteApp.Domain\SEDC.NoteApp.Domain.csproj" />
   </ItemGroup>
 

@@ -1,0 +1,31 @@
+Generate token: 
+ private string GenerateToken(List<Claim> claims)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var secret = configuration["SecretKey"];
+            var token = handler.CreateToken(new SecurityTokenDescriptor
+            {
+                Expires = DateTime.UtcNow.AddHours(5),
+                Subject = new ClaimsIdentity(claims),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret)), SecurityAlgorithms.HmacSha512)
+            });
+
+            return handler.WriteToken(token);
+        }
+
+Validate token: 
+
+builder.Services.AddAuthentication(opt =>
+{
+    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(config =>
+{
+    var secret = builder.Configuration["SecretKey"];
+    config.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateAudience = false,
+        ValidateIssuer = false,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret))
+    };
+});

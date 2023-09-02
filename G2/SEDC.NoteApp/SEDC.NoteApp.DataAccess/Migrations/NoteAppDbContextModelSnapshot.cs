@@ -79,6 +79,10 @@ namespace SEDC.NoteApp.DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -95,6 +99,7 @@ namespace SEDC.NoteApp.DataAccess.Migrations
                             Age = 34,
                             FirstName = "Viktor",
                             LastName = "Jakovlev",
+                            Password = "N?K????4???B??7?",
                             Username = "vjakovlev"
                         });
                 });

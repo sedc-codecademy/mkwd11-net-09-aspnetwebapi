@@ -4,14 +4,14 @@
 
 namespace SEDC.NoteApp.DataAccess.Migrations
 {
-    public partial class seed : Migration
+    public partial class seed_data : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Age", "FirstName", "LastName", "Username" },
-                values: new object[] { 1, 34, "Viktor", "Jakovlev", "vjakovlev" });
+                columns: new[] { "Id", "Age", "FirstName", "LastName", "Password", "Username" },
+                values: new object[] { 1, 34, "Viktor", "Jakovlev", "N?K????4???B??7?", "vjakovlev" });
 
             migrationBuilder.InsertData(
                 table: "Notes",
