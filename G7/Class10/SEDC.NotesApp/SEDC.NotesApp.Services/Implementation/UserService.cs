@@ -53,19 +53,20 @@ namespace SEDC.NotesApp.Services.Implementation
             //GENERATE JWT TOKEN
             JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
 
-            //byte[] secretKeyByte = Encoding.ASCII.GetBytes("This is our secret key");
+            //byte[] secretKeyByte = Encoding.ASCII.GetBytes("This is our secret keyss");
             byte[] secretKeyByte = Encoding.ASCII.GetBytes(_configuration["Appsettings:SecretKey"]);
 
             SecurityTokenDescriptor securityTokenDescriptor = new SecurityTokenDescriptor
             {
-                Expires = DateTime.UtcNow.AddHours(1),
+                Expires = DateTime.Now.AddSeconds(15),
+                
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKeyByte), SecurityAlgorithms.HmacSha256Signature),
                 Subject = new ClaimsIdentity(
                     new[]
                     {
                         new Claim(ClaimTypes.NameIdentifier, user.Username),
                         new Claim("FullName", $"{user.FirstName} {user.LastName}"),
-                        //form database
+                        //from database
                         //new Claim(ClaimTypes.Role, user.Role),
                         new Claim(ClaimTypes.Role, "Member"),
                         new Claim(ClaimTypes.Role, "Admin"),

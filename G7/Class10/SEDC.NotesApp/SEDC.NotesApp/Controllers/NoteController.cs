@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SEDC.NotesApp.Dtos;
 using SEDC.NotesApp.Services.Interfaces;
+using System.Security.Claims;
 
 namespace SEDC.NotesApp.Controllers
 {
@@ -16,12 +18,15 @@ namespace SEDC.NotesApp.Controllers
             _noteService = noteService;
         }
 
-
+        [Authorize]
         [HttpGet]
         public IActionResult GetAll()
         {
             try
             {
+                
+                var roles = User.Claims.Where(x => x.Type == ClaimTypes.Role).Select(x => x.Value).ToList();
+
                 var notes = _noteService.GetAll();
 
                 return Ok(notes);

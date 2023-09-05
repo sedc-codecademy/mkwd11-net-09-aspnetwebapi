@@ -57,19 +57,24 @@ namespace SEDC.NotesApp
             }).AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = false;
+                //caches the token so that we can access it during the request lifetime
                 x.SaveToken = true;
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateAudience = false,
                     ValidateIssuer = false,
-                    ValidateLifetime = false,
-                    //not sure
-                    ValidateIssuerSigningKey = false,
+                    //Check if the expiration time has passes
+                    ValidateLifetime = true,
+                    //Token musth have an expiration time
+                    RequireExpirationTime = true,
+                    //should be sto to true to validate the key
+                    ValidateIssuerSigningKey = true,
+                    // set the time buffer for client-server difference. default is 300 sec
+                    ClockSkew = TimeSpan.Zero,
                     IssuerSigningKey = new SymmetricSecurityKey
                     (Encoding.ASCII.GetBytes(builder.Configuration["AppSettings:SecretKey"]))
                 };
             });
-
 
             var app = builder.Build();
 
