@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using XSystem.Security.Cryptography;
 
 namespace SEDC.NoteApp.CryptoService
 {
+    // XAct.Core.PCL => nuget for hashing
     public static class StringHasher
     {
         public static string Hash(string inputString)
