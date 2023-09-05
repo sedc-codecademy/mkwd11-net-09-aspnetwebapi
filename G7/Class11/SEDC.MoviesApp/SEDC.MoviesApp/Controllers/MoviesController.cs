@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SEDC.MoviesApp.Dtos;
 using SEDC.MoviesApp.Services;
 
 namespace SEDC.MoviesApp.Controllers
 {
+   
     [Route("api/[controller]")]
     [ApiController]
     public class MoviesController : ControllerBase
@@ -16,6 +18,7 @@ namespace SEDC.MoviesApp.Controllers
             _movieService = movieService;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult<List<MovieDto>> Get()
         {

@@ -12,6 +12,7 @@
     <ProjectReference Include="..\SEDC.MoviesApp.Dtos\SEDC.MoviesApp.Dtos.csproj" />
     <ProjectReference Include="..\SEDC.MoviesApp.Enums\SEDC.MoviesApp.Enums.csproj" />
     <ProjectReference Include="..\SEDC.MoviesApp.Mappers\SEDC.MoviesApp.Mappers.csproj" />
+    <ProjectReference Include="..\SEDC.MoviesApp.Shared\SEDC.MoviesApp.Shared.csproj" />
   </ItemGroup>
 
 </Project>

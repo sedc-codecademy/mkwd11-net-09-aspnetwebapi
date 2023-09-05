@@ -20,11 +20,10 @@ namespace SEDC.MoviesApp.DataAccess
         public void Delete(T entity)
         {
             //var dbEntity = GetById(entity.Id);
+            //DeleteById(entity.Id);
 
-            //_dbContext.Remove<T>(dbEntity);
-            //_dbContext.SaveChanges();
-
-            DeleteById(entity.Id);
+            _dbContext.Remove<T>(entity);
+            _dbContext.SaveChanges();
         }
 
         public void DeleteById(int id)
