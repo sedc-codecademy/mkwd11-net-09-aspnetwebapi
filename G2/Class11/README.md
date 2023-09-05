@@ -54,9 +54,9 @@ A genre contains:
 
 ### Create the following endpoints for users:
 
-* Rgister
-*  Login
-* Reset Password
+* Register
+* Login
+* Change Password
 
 ### Implement authentication/authorization with tokens and authorize endpoints accordingly
 
