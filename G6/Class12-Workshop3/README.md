@@ -34,7 +34,7 @@ Create an end-to-end implementation for Users. A User has:
 * First Name
 * Last Name
 * Favorite Genre
-* MoviesList - Bonus (One user has many favourite movies, one movie can be favourite of many users)
+* MoviesList
 
 Implement registration and login of users.
 
