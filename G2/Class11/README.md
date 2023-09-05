@@ -43,7 +43,7 @@ A genre contains:
 
 ## Part 3
 
-Create an end-to-end implementation for Users. A User has:
+### Create an end-to-end implementation for Users. A User has:
 
 * Username
 * Password ( Hashed )
@@ -52,13 +52,13 @@ Create an end-to-end implementation for Users. A User has:
 * Favorite Genre
 * MoviesList
 
-* Create the following endpoints for users:
+### Create the following endpoints for users:
 
-- Rgister
-- Login
-- Reset Password
+* Rgister
+*  Login
+* Reset Password
 
-* Implement authentication/authorization with tokens and authorize endpoints accordingly
+### Implement authentication/authorization with tokens and authorize endpoints accordingly
 
-* Extends GetAllMovies methods to return movies for specific user
+### Extends GetAllMovies methods to return movies for specific user
 
