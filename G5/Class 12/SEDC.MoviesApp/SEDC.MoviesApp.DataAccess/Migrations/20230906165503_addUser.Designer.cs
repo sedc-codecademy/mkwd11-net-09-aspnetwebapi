@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SEDC.MoviesApp.DataAccess;
 
@@ -10,9 +11,10 @@ using SEDC.MoviesApp.DataAccess;
 namespace SEDC.MoviesApp.DataAccess.Migrations
 {
     [DbContext(typeof(MoviesDbContext))]
-    partial class MoviesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230906165503_addUser")]
+    partial class addUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,7 +58,7 @@ namespace SEDC.MoviesApp.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            FavoriteGenre = 4,
+                            FavoriteGenre = 0,
                             FirstName = "Boby",
                             LastName = "Bobsky",
                             Password = "?r??8???1?%?^",
@@ -65,7 +67,7 @@ namespace SEDC.MoviesApp.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            FavoriteGenre = 1,
+                            FavoriteGenre = 0,
                             FirstName = "Mice",
                             LastName = "Karajov",
                             Password = "e???\"hf???Z?v",

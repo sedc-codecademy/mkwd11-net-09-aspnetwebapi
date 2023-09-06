@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SEDC.MoviesApp.DataAccess;
+using SEDC.MoviesApp.DataAccess.Implementations;
+using SEDC.MoviesApp.DataAccess.Interfaces;
 using SEDC.MoviesApp.Services.Implementations;
 using SEDC.MoviesApp.Services.Interfaces;
 
@@ -16,11 +18,13 @@ namespace SEDC.MoviesApp.Helpers
         public static void InjectRepositories(IServiceCollection services)
         {
             services.AddTransient<IMovieRepository, MovieRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
         }
 
         public static void InjectServices(IServiceCollection services)
         {
             services.AddTransient<IMovieService, MovieService>();
+            services.AddTransient<IUserService, UserService>();
         }
     }
 }

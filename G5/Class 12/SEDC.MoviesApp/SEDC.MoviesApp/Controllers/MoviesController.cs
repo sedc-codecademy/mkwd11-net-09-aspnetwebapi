@@ -4,6 +4,7 @@ using SEDC.MoviesApp.Domain;
 using SEDC.MoviesApp.Dtos;
 using SEDC.MoviesApp.Services.Interfaces;
 using SEDC.MoviesApp.Shared;
+using System.Security.Claims;
 
 namespace SEDC.MoviesApp.Controllers
 {
@@ -23,7 +24,8 @@ namespace SEDC.MoviesApp.Controllers
         {
             try
             {
-                return Ok(_movieService.GetAllMovies());
+                var userId = GetAuthorizedUserId();
+                return Ok(_movieService.GetAllMovies(userId));
             }
             catch (MovieException e)
             {
@@ -105,7 +107,8 @@ namespace SEDC.MoviesApp.Controllers
         {
             try
             {
-                _movieService.DeleteMovie(id);
+                var userId = GetAuthorizedUserId();
+                _movieService.DeleteMovie(id, userId);
 
                 return StatusCode(StatusCodes.Status204NoContent, "Deleted resource");
             }
@@ -131,7 +134,8 @@ namespace SEDC.MoviesApp.Controllers
         {
             try
             {
-                _movieService.AddMovie(movieDto);
+                var userId = GetAuthorizedUserId();
+                _movieService.AddMovie(movieDto, userId);
                 return StatusCode(StatusCodes.Status201Created);
             }
             catch (MovieException e)
@@ -144,6 +148,18 @@ namespace SEDC.MoviesApp.Controllers
                 //log
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred, contact the admin");
             }
+        }
+
+        private int GetAuthorizedUserId()
+        {
+            if (!int.TryParse(User.FindFirst(ClaimTypes.NameIdentifier)?
+                .Value, out var userId))
+            {
+                string name = User.FindFirst(ClaimTypes.Name)?.Value;
+                throw new UserException(userId, name,
+                    "Name identifier claim does not exist!");
+            }
+            return userId;
         }
     }
 }

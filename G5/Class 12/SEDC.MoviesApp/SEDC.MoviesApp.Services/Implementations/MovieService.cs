@@ -15,7 +15,7 @@ namespace SEDC.MoviesApp.Services.Implementations
         {
             _movieRepository = movieRepository;
         }
-        public void AddMovie(AddMovieDto addMovieDto)
+        public void AddMovie(AddMovieDto addMovieDto, int userId)
         {
             if (string.IsNullOrEmpty(addMovieDto.Title))
             {
@@ -31,14 +31,20 @@ namespace SEDC.MoviesApp.Services.Implementations
             }
 
             Movie newMovie = addMovieDto.ToMovie();
+            newMovie.UserId = userId;
             _movieRepository.Add(newMovie);
 
         }
 
-        public void DeleteMovie(int id)
+        public void DeleteMovie(int id, int userId)
         {
             var movieDb = _movieRepository.GetById(id);
             if (movieDb == null)
+            {
+                throw new MovieNotFoundException($"Movie with id {id} not found");
+            }
+
+            if(movieDb.UserId != userId)
             {
                 throw new MovieNotFoundException($"Movie with id {id} not found");
             }
@@ -64,9 +70,9 @@ namespace SEDC.MoviesApp.Services.Implementations
                 .Select(x => x.ToMovieDto()).ToList();
         }
 
-        public List<MovieDto> GetAllMovies()
+        public List<MovieDto> GetAllMovies(int userId)
         {
-            return _movieRepository.GetAll().Select(x => x.ToMovieDto()).ToList();
+            return _movieRepository.GetAll().Where(x=>x.UserId == userId).Select(x => x.ToMovieDto()).ToList();
         }
 
         public MovieDto GetMovieById(int id)
@@ -103,6 +109,7 @@ namespace SEDC.MoviesApp.Services.Implementations
             movieDb.Title = updateMovieDto.Title;
             movieDb.Description = updateMovieDto.Description;
             movieDb.Genre = updateMovieDto.Genre;
+            movieDb.UserId = updateMovieDto.UserId;
 
             _movieRepository.Update(movieDb);
         }
