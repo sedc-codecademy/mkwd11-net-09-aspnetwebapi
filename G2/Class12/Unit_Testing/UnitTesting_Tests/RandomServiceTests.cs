@@ -46,5 +46,27 @@ namespace UnitTesting_Tests
             //Assert
             Assert.IsTrue(result);
         }
+
+        [TestMethod]
+        public void GetDigitName_DoubleDigit_Exception() 
+        {
+            //Arrange
+            var number = 14;
+
+            //Act //Assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => _randomService.GetDigitName(number));
+        }
+
+        //Assert
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [TestMethod]
+        public void GetDigitName_DoubleDigit_Exception_2()
+        {
+            //Arrange
+            var number = 14;
+
+            //Act
+            var result = _randomService.GetDigitName(number);
+        }
     }
 }
