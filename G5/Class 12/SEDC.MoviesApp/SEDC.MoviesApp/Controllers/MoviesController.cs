@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SEDC.MoviesApp.Domain;
 using SEDC.MoviesApp.Dtos;
@@ -19,6 +20,7 @@ namespace SEDC.MoviesApp.Controllers
             _movieService = movieService;
         }
 
+        [Authorize]
         [HttpGet] //api/movies
         public ActionResult<List<MovieDto>> Get()
         {
@@ -102,6 +104,7 @@ namespace SEDC.MoviesApp.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
@@ -129,6 +132,7 @@ namespace SEDC.MoviesApp.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("addMovie")]
         public IActionResult AddMovie([FromBody] AddMovieDto movieDto)
         {

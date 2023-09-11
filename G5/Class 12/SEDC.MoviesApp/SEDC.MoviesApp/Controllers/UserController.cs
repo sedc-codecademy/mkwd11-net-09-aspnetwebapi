@@ -54,5 +54,21 @@ namespace SEDC.MoviesApp.Controllers
 
         }
 
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate([FromBody] LoginDto loginDto)
+        {
+            try
+            {
+                var loginUser = _userService.Authenticate(loginDto);
+                return Ok(loginUser);
+            }
+            catch(Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ResponseDto() { Error = "An error occured!" });
+
+            }
+        }
+
     }
 }
