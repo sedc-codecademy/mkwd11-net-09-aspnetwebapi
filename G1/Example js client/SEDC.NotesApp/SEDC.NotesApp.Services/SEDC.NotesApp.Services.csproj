@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SEDC.NotesApp.DataAccess\SEDC.NotesApp.DataAccess.csproj" />
+    <ProjectReference Include="..\SEDC.NotesApp.Dtos\SEDC.NotesApp.Dtos.csproj" />
+    <ProjectReference Include="..\SEDC.NotesApp.Mappers\SEDC.NotesApp.Mappers.csproj" />
+    <ProjectReference Include="..\SEDC.NotesApp.Shared\SEDC.NotesApp.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
