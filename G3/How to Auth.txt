@@ -1,0 +1,28 @@
+- Set up user class
+- Add user as db set in the db context and create migration
+- Add connection to user from existing entities
+- 
+
+Register- action
+- Create user repository and register(create) method of the service
+- Validate email,password
+- HashPassword
+- Use repository to save the user 
+- Optional send confirmation email
+
+Login
+- Create GetByEmail repository method
+- Using IHasher validate that the password send thru the model is the same as the hash in the db
+- Use the ISignInManger to create token/cookie
+
+Close controllers to logged in users only using the [Authorize] attribute
+
+Add Authentication Middlware JWT/Cookie in program.cs
+Add Authentication services
+
+Authentication middlware must be before autorization middlware
+
+Working with ClaimsPrincipal
+
+ClaimsPrincipal object on the controller only has claims on authorized controller
+Usualy we create customer wrapper or extensions to make it easier to work with ClaimsPrincipal
