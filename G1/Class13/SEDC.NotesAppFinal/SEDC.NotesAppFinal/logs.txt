@@ -1,0 +1,56 @@
+2023-09-11 19:05:15.638 +02:00 [INF] User profile is available. Using 'C:\Users\LEN\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-09-11 19:05:15.898 +02:00 [INF] Now listening on: http://localhost:5070
+2023-09-11 19:05:15.901 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-09-11 19:05:15.902 +02:00 [INF] Hosting environment: Development
+2023-09-11 19:05:15.902 +02:00 [INF] Content root path: C:\Users\LEN\Desktop\SEDC\8. API\mkwd11-net-09-aspnetwebapi\G1\Class13\SEDC.NotesAppFinal\SEDC.NotesAppFinal\
+2023-09-11 19:05:17.987 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5070/swagger/index.html - -
+2023-09-11 19:05:18.594 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5070/swagger/index.html - - - 200 - text/html;charset=utf-8 616.7769ms
+2023-09-11 19:05:18.658 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5070/_vs/browserLink - -
+2023-09-11 19:05:18.661 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5070/_framework/aspnetcore-browser-refresh.js - -
+2023-09-11 19:05:18.680 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5070/_framework/aspnetcore-browser-refresh.js - - - 200 12006 application/javascript;+charset=utf-8 18.7907ms
+2023-09-11 19:05:18.705 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5070/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 47.6073ms
+2023-09-11 19:05:18.791 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5070/swagger/v1/swagger.json - -
+2023-09-11 19:05:19.046 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5070/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 254.0960ms
+2023-09-11 19:05:27.005 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5070/api/Notes/777 - -
+2023-09-11 19:05:27.108 +02:00 [INF] Executing endpoint 'SEDC.NotesAppFinal.Controllers.NotesController.GetNoteAsync (SEDC.NotesAppFinal)'
+2023-09-11 19:05:27.149 +02:00 [INF] Route matched with {action = "GetNote", controller = "Notes"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[SEDC.NotesAppFinal.DTOs.NoteDTOs.NoteDto]] GetNoteAsync(Int32) on controller SEDC.NotesAppFinal.Controllers.NotesController (SEDC.NotesAppFinal).
+2023-09-11 19:05:29.702 +02:00 [INF] Executed DbCommand (89ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [n].[Id], [n].[Priority], [n].[Tag], [n].[Text], [n].[UserId], [u].[Id], [u].[FirstName], [u].[LastName], [u].[Password], [u].[Username]
+FROM [Notes] AS [n]
+INNER JOIN [Users] AS [u] ON [n].[UserId] = [u].[Id]
+WHERE [n].[Id] = @__id_0
+2023-09-11 19:05:29.863 +02:00 [ERR] No note retrieved, [HTTPGET] method.
+System.Exception: Note is null
+   at SEDC.NotesAppFinal.Services.Implementations.NotesService.GetNoteAsync(Int32 id) in C:\Users\LEN\Desktop\SEDC\8. API\mkwd11-net-09-aspnetwebapi\G1\Class13\SEDC.NotesAppFinal\SEDC.NotesAppFinal.Services\Implementations\NotesService.cs:line 65
+   at SEDC.NotesAppFinal.Controllers.NotesController.GetNoteAsync(Int32 id) in C:\Users\LEN\Desktop\SEDC\8. API\mkwd11-net-09-aspnetwebapi\G1\Class13\SEDC.NotesAppFinal\SEDC.NotesAppFinal\Controllers\NotesController.cs:line 36
+2023-09-11 19:05:30.016 +02:00 [INF] Executing ObjectResult, writing value of type 'System.String'.
+2023-09-11 19:05:30.023 +02:00 [INF] Executed action SEDC.NotesAppFinal.Controllers.NotesController.GetNoteAsync (SEDC.NotesAppFinal) in 2868.5331ms
+2023-09-11 19:05:30.025 +02:00 [INF] Executed endpoint 'SEDC.NotesAppFinal.Controllers.NotesController.GetNoteAsync (SEDC.NotesAppFinal)'
+2023-09-11 19:05:30.043 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5070/api/Notes/777 - - - 500 - text/plain;+charset=utf-8 3038.5435ms
+2023-09-11 19:06:28.061 +02:00 [INF] User profile is available. Using 'C:\Users\LEN\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-09-11 19:06:28.360 +02:00 [INF] Now listening on: http://localhost:5070
+2023-09-11 19:06:28.363 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-09-11 19:06:28.364 +02:00 [INF] Hosting environment: Development
+2023-09-11 19:06:28.364 +02:00 [INF] Content root path: C:\Users\LEN\Desktop\SEDC\8. API\mkwd11-net-09-aspnetwebapi\G1\Class13\SEDC.NotesAppFinal\SEDC.NotesAppFinal\
+2023-09-11 19:06:29.810 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5070/swagger/index.html - -
+2023-09-11 19:06:30.608 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5070/swagger/index.html - - - 200 - text/html;charset=utf-8 820.9867ms
+2023-09-11 19:06:30.659 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5070/_framework/aspnetcore-browser-refresh.js - -
+2023-09-11 19:06:30.664 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5070/_vs/browserLink - -
+2023-09-11 19:06:30.667 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5070/_framework/aspnetcore-browser-refresh.js - - - 200 12006 application/javascript;+charset=utf-8 7.4290ms
+2023-09-11 19:06:30.721 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5070/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 57.0356ms
+2023-09-11 19:06:30.796 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5070/swagger/v1/swagger.json - -
+2023-09-11 19:06:31.043 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5070/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 247.7999ms
+2023-09-11 19:06:35.315 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5070/api/Notes/1 - -
+2023-09-11 19:06:35.417 +02:00 [INF] Executing endpoint 'SEDC.NotesAppFinal.Controllers.NotesController.GetNoteAsync (SEDC.NotesAppFinal)'
+2023-09-11 19:06:35.452 +02:00 [INF] Route matched with {action = "GetNote", controller = "Notes"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[SEDC.NotesAppFinal.DTOs.NoteDTOs.NoteDto]] GetNoteAsync(Int32) on controller SEDC.NotesAppFinal.Controllers.NotesController (SEDC.NotesAppFinal).
+2023-09-11 19:06:38.111 +02:00 [INF] Executed DbCommand (179ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [n].[Id], [n].[Priority], [n].[Tag], [n].[Text], [n].[UserId], [u].[Id], [u].[FirstName], [u].[LastName], [u].[Password], [u].[Username]
+FROM [Notes] AS [n]
+INNER JOIN [Users] AS [u] ON [n].[UserId] = [u].[Id]
+WHERE [n].[Id] = @__id_0
+2023-09-11 19:06:38.360 +02:00 [INF] Retrieved note: HE HE [HTTPGET] method.
+2023-09-11 19:06:38.362 +02:00 [INF] Retrieved note: HE HE [HTTPGET] method.
+2023-09-11 19:06:38.382 +02:00 [INF] Executing OkObjectResult, writing value of type 'SEDC.NotesAppFinal.DTOs.NoteDTOs.NoteDto'.
+2023-09-11 19:06:38.414 +02:00 [INF] Executed action SEDC.NotesAppFinal.Controllers.NotesController.GetNoteAsync (SEDC.NotesAppFinal) in 2956.5918ms
+2023-09-11 19:06:38.416 +02:00 [INF] Executed endpoint 'SEDC.NotesAppFinal.Controllers.NotesController.GetNoteAsync (SEDC.NotesAppFinal)'
+2023-09-11 19:06:38.436 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5070/api/Notes/1 - - - 200 - application/json;+charset=utf-8 3120.7799ms

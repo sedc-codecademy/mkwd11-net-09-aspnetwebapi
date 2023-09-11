@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="XAct.Core.PCL" Version="0.0.5014" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SEDC.NotesAppFinal.DataAccess\SEDC.NotesAppFinal.DataAccess.csproj" />
+    <ProjectReference Include="..\SEDC.NotesAppFinal.DTOs\SEDC.NotesAppFinal.DTOs.csproj" />
+    <ProjectReference Include="..\SEDC.NotesAppFinal.Mappers\SEDC.NotesAppFinal.Mappers.csproj" />
+    <ProjectReference Include="..\SEDC.NotesAppFinal.Shared\SEDC.NotesAppFinal.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
