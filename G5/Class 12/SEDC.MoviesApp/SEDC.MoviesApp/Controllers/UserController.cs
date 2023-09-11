@@ -26,7 +26,7 @@ namespace SEDC.MoviesApp.Controllers
             try
             {
                 string token = _userService.LoginUser(loginDto);
-                return Ok(new ResponseDto() { Success = token});
+                return Ok(new ResponseDto() { Success = token });
             }
             catch(Exception e)
             {
@@ -61,9 +61,18 @@ namespace SEDC.MoviesApp.Controllers
             try
             {
                 var loginUser = _userService.Authenticate(loginDto);
+
+                if (loginUser == null)
+                {
+                    return NotFound("Username or Password is incorrect!");
+                }
                 return Ok(loginUser);
             }
-            catch(Exception e)
+            catch (UserException ex)
+            {
+                return BadRequest(new ResponseDto() { Error = ex.Message });
+            }
+            catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ResponseDto() { Error = "An error occured!" });
 

@@ -25,29 +25,28 @@ namespace SEDC.MoviesApp.Services.Implementations
             _userRepository = userRepository;
         }
 
-        public UserDto Authenticate(LoginDto loginDto)
+        public UserDto Authenticate(LoginDto model)
         {
             var md5 = new MD5CryptoServiceProvider();
-            var md5data = md5.ComputeHash(Encoding.ASCII.GetBytes(loginDto.Password));
+            var md5data = md5.ComputeHash(Encoding.ASCII.GetBytes(model.Password));
             var hashedPassword = Encoding.ASCII.GetString(md5data);
-
-            var user = _userRepository.GetAll().FirstOrDefault(x => x.Username.ToLower() == loginDto.Username.ToLower() && x.Password == hashedPassword);
-
-            if (user == null) throw new UserException(null, loginDto.Username, "Username not found");
-
+            var user = _userRepository.GetAll().SingleOrDefault(x =>
+                x.Username == model.Username && x.Password == hashedPassword);
+            if (user == null) return null;
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("Our secret key secret key secret key");
+            var key = Encoding.ASCII.GetBytes("Our very secret secret key");
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Expires = DateTime.UtcNow.AddHours(4),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                Subject = new ClaimsIdentity(
+                Subject = new System.Security.Claims.ClaimsIdentity(
                     new[]
                     {
-                        new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}" ),
+                        new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
                         new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
                     }
-                )
+                    ),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(
+                        new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
@@ -59,12 +58,9 @@ namespace SEDC.MoviesApp.Services.Implementations
                 LastName = user.LastName,
                 Username = user.Username,
                 Token = tokenHandler.WriteToken(token),
-                MovieList = user.MoviList.Select(x=>x.ToMovieDto()).ToList()
-
+                MovieList = user.MoviList.Select(movie => movie.ToMovieDto()).ToList()
             };
-
             return userModel;
-
 
         }
 

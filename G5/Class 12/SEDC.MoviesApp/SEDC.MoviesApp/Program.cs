@@ -1,7 +1,8 @@
+using SEDC.MoviesApp.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using SEDC.MoviesApp.Helpers;
 using System.Text;
+using Microsoft.AspNetCore.DataProtection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,12 +29,14 @@ builder.Services.AddAuthentication(x =>
     x.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("Our secret key secret key secret key")),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("Our very secret secret key")),
         ValidateIssuer = false,
         ValidateAudience = false
     };
 }
 );
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -49,7 +52,6 @@ if (app.Environment.IsDevelopment())
         .AllowAnyHeader();
     });
 }
-
 app.UseAuthentication();
 app.UseAuthorization();
 
