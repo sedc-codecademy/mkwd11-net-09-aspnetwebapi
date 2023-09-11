@@ -1,0 +1,10 @@
+1. Set up named httpClient in program.cs using the AddHttpClient([String name], configuration function) method
+2. Create service that will use the IHttpClientFactory interface to create an httpClient
+3. Create method that will call the external api
+4. In the method create a request HttpRequestMessage
+5. Serilize the models that are needed for the endpoint into json and then pass them to StringContent
+6. Send the request
+7. Ensure the response is successfull
+8. Convert the response into json
+9. Deserilze the json in c# objects
+
