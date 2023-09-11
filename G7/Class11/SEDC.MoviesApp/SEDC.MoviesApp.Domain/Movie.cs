@@ -14,5 +14,8 @@ namespace SEDC.MoviesApp.Domain
         public int Year { get; set; }
         [Required]
         public GenreEnum Genre { get; set; }
+        [Required]
+        public int UserId { get; set; }
+        public virtual User User { get; set; }
     }
 }

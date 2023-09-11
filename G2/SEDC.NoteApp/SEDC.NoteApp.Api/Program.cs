@@ -24,6 +24,7 @@ var cs = builder.Configuration.GetConnectionString("DefaultConnection");
 
 //Ways to get values from AppSettings (OLD WAY)
 var sectionValue = builder.Configuration.GetSection("RandomSection").Value;
+var sectionValue2 = builder.Configuration.GetValue<string>("RandomSection");
 var secretKeyFromAppSettings = builder.Configuration.GetSection("NoteAppSettings").GetValue<string>("SecretKey");
 
 //Ways to get values from AppSettings (NEW WAY)

@@ -11,7 +11,6 @@ using System.Text;
 
 namespace SEDC.NoteApp.Services.Implementation
 {
-    // XAct.Core.PCL => nuget for hashing
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;

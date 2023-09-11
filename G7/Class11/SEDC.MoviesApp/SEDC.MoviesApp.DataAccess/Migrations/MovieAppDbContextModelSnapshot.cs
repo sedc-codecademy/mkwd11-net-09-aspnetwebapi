@@ -41,10 +41,15 @@ namespace SEDC.MoviesApp.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Movies");
 
@@ -55,6 +60,7 @@ namespace SEDC.MoviesApp.DataAccess.Migrations
                             Description = "Documentary",
                             Genre = 4,
                             Title = "Oppenheimer",
+                            UserId = 1,
                             Year = 2023
                         },
                         new
@@ -63,6 +69,7 @@ namespace SEDC.MoviesApp.DataAccess.Migrations
                             Description = "Girl",
                             Genre = 1,
                             Title = "Barbie",
+                            UserId = 1,
                             Year = 2023
                         },
                         new
@@ -71,6 +78,7 @@ namespace SEDC.MoviesApp.DataAccess.Migrations
                             Description = "Action movie",
                             Genre = 2,
                             Title = "Top Gun:Maverick",
+                            UserId = 1,
                             Year = 2021
                         },
                         new
@@ -79,8 +87,68 @@ namespace SEDC.MoviesApp.DataAccess.Migrations
                             Description = "Action movie",
                             Genre = 1,
                             Title = "Dumb and dumber",
+                            UserId = 1,
                             Year = 1994
                         });
+                });
+
+            modelBuilder.Entity("SEDC.MoviesApp.Domain.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FirstName = "John",
+                            LastName = "Doe",
+                            Password = "????\"?v??Sej?",
+                            Role = 3,
+                            UserName = "user1"
+                        });
+                });
+
+            modelBuilder.Entity("SEDC.MoviesApp.Domain.Movie", b =>
+                {
+                    b.HasOne("SEDC.MoviesApp.Domain.User", "User")
+                        .WithMany("Movies")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("SEDC.MoviesApp.Domain.User", b =>
+                {
+                    b.Navigation("Movies");
                 });
 #pragma warning restore 612, 618
         }

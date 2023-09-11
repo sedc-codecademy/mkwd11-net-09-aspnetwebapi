@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEDC.NoteApp.Mappers", "SED
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEDC.NoteApp.CustomExceptions", "SEDC.NoteApp.CustomExceptions\SEDC.NoteApp.CustomExceptions.csproj", "{1D7DA3AD-AD5F-4FE5-8DD0-058CAE0F917D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.NoteApp.CryptoService", "SEDC.NoteApp.CryptoService\SEDC.NoteApp.CryptoService.csproj", "{BBD1074F-47B8-48C7-814D-8A7EE911360F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEDC.NoteApp.CryptoService", "SEDC.NoteApp.CryptoService\SEDC.NoteApp.CryptoService.csproj", "{BBD1074F-47B8-48C7-814D-8A7EE911360F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.NoteApp.Tests", "SEDC.NoteApp.Tests\SEDC.NoteApp.Tests.csproj", "{F31A6D84-B201-4774-A3D1-662EDB89F6FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{BBD1074F-47B8-48C7-814D-8A7EE911360F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBD1074F-47B8-48C7-814D-8A7EE911360F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBD1074F-47B8-48C7-814D-8A7EE911360F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F31A6D84-B201-4774-A3D1-662EDB89F6FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F31A6D84-B201-4774-A3D1-662EDB89F6FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F31A6D84-B201-4774-A3D1-662EDB89F6FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F31A6D84-B201-4774-A3D1-662EDB89F6FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
