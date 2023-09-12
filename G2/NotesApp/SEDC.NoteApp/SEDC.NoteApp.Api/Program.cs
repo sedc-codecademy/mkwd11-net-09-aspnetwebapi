@@ -9,6 +9,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using SEDC.NoteApp.Helpers;
+using Serilog;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,7 +27,12 @@ builder.Configuration
     // we manually add our custom setting files to the configuration
     .AddJsonFile(path: "serilog-config.json", optional: false, reloadOnChange: true)
     .Build();
-    
+
+// Register/Use Serilog
+builder.Host.UseSerilog((context, config) =>
+{
+    config.ReadFrom.Configuration(context.Configuration);
+});
 
 var cs = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -79,6 +85,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+//app.UseSerilogRequestLogging(); // logs every request
 
 app.UseAuthentication();
 app.UseAuthorization();
