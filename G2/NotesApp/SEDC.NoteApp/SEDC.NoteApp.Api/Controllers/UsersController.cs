@@ -52,7 +52,7 @@ namespace SEDC.NoteApp.Api.Controllers
                 Log.Information("Processing login... User: {username}", loginUserDto.Username);
                 var token = _userService.LoginUser(loginUserDto);
                 Log.Information("User logged in successfully: {Username}", loginUserDto.Username);
-                return Ok(token);
+                return Ok(new { token });
             }
             catch (UserDataException ex)
             {
