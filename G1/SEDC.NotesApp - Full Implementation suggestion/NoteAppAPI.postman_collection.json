@@ -1,0 +1,382 @@
+{
+	"info": {
+		"_postman_id": "ee5dd34a-3536-48e4-bcd0-cae238083d4b",
+		"name": "NoteApp API Calls",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2244976"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"jillawesome\",\r\n    \"password\": \"123456jill\",\r\n    \"ConfirmPassword\": \"123456jill\",\r\n    \"firstName\": \"Jill\",\r\n    \"lastName\": \"Wayne\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5043/api/user/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5043",
+					"path": [
+						"api",
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate - Bob",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"bob007\",\n\t\"password\": \"123456sedc\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5043/api/user/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5043",
+					"path": [
+						"api",
+						"user",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate - Jill",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"jillawesome\",\n\t\"password\": \"123456jill\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5043/api/user/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5043",
+					"path": [
+						"api",
+						"user",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add New Note - Bob",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkJvYiBCb2Jza3kiLCJuYW1laWQiOiIxIiwibmJmIjoxNjU5MjY1Mzg1LCJleHAiOjE2NTk4NzAxODUsImlhdCI6MTY1OTI2NTM4NX0.NgRCtyXDHWw31rZXZA6VMdtD8v_JEiiLG6SXkszp2Gk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"Text\" : \"Getssasasasas Milk\",\r\n\"Color\" : \"Green\",\r\n\"Tag\" : 1,\r\n\"UserId\" : 1\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5043/api/note",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5043",
+					"path": [
+						"api",
+						"note"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add New Note - Jill",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkppbGwgV2F5bmUiLCJuYW1laWQiOiIyIiwibmJmIjoxNjU3OTAzNjY0LCJleHAiOjE2NTg1MDg0NjQsImlhdCI6MTY1NzkwMzY2NH0.0dILqFju6OvHDXb9CeJ50vW6X02JIb3wm8WhndStvWE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"Text\" : \"Buy Cereal\",\r\n\"Color\" : \"Red\",\r\n\"Tag\" : 1,\r\n\"UserId\" : 2\r\n}   "
+				},
+				"url": {
+					"raw": "http://localhost:5043/api/note",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5043",
+					"path": [
+						"api",
+						"note"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All - Bob",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkJvYiBCb2Jza3kiLCJuYW1laWQiOiIxIiwibmJmIjoxNjU5MjY1Mzg1LCJleHAiOjE2NTk4NzAxODUsImlhdCI6MTY1OTI2NTM4NX0.NgRCtyXDHWw31rZXZA6VMdtD8v_JEiiLG6SXkszp2Gk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5043/api/note",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5043",
+					"path": [
+						"api",
+						"note"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All - Jill",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkppbGwgV2F5bmUiLCJuYW1laWQiOiIyIiwibmJmIjoxNjU3OTAzNjY0LCJleHAiOjE2NTg1MDg0NjQsImlhdCI6MTY1NzkwMzY2NH0.0dILqFju6OvHDXb9CeJ50vW6X02JIb3wm8WhndStvWE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5043/api/note",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5043",
+					"path": [
+						"api",
+						"note"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Note By ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkppbGwgV2F5bmUiLCJuYW1laWQiOiIyIiwibmJmIjoxNjU3OTAzNjY0LCJleHAiOjE2NTg1MDg0NjQsImlhdCI6MTY1NzkwMzY2NH0.0dILqFju6OvHDXb9CeJ50vW6X02JIb3wm8WhndStvWE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5043/api/note/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5043",
+					"path": [
+						"api",
+						"note",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Note By ID - Bob",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkJvYiBCb2Jza3kiLCJuYW1laWQiOiIxIiwibmJmIjoxNjAwODE5NDk5LCJleHAiOjE2MDE0MjQyOTksImlhdCI6MTYwMDgxOTQ5OX0.TD33zamUeyMeksa_rU_R5hiRO0YmXXL6W2VO3Eux7n4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5043/api/note/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5043",
+					"path": [
+						"api",
+						"note",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Note By ID - Jill",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkppbGwgV2F5bmUiLCJuYW1laWQiOiIyIiwibmJmIjoxNjU3OTAzNjY0LCJleHAiOjE2NTg1MDg0NjQsImlhdCI6MTY1NzkwMzY2NH0.0dILqFju6OvHDXb9CeJ50vW6X02JIb3wm8WhndStvWE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5043/api/note/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5043",
+					"path": [
+						"api",
+						"note",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "External API Call",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5043/api/external/registertestuser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5043",
+					"path": [
+						"api",
+						"external",
+						"registertestuser"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

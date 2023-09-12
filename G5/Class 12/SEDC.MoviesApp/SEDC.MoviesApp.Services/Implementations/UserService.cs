@@ -25,29 +25,28 @@ namespace SEDC.MoviesApp.Services.Implementations
             _userRepository = userRepository;
         }
 
-        public UserDto Authenticate(LoginDto loginDto)
+        public UserDto Authenticate(LoginDto model)
         {
             var md5 = new MD5CryptoServiceProvider();
-            var md5data = md5.ComputeHash(Encoding.ASCII.GetBytes(loginDto.Password));
+            var md5data = md5.ComputeHash(Encoding.ASCII.GetBytes(model.Password));
             var hashedPassword = Encoding.ASCII.GetString(md5data);
-
-            var user = _userRepository.GetAll().FirstOrDefault(x => x.Username.ToLower() == loginDto.Username.ToLower() && x.Password == loginDto.Password);
-
-            if (user == null) throw new UserException(null, loginDto.Username, "Username not found");
-
+            var user = _userRepository.GetAll().SingleOrDefault(x =>
+                x.Username == model.Username && x.Password == hashedPassword);
+            if (user == null) return null;
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("Our secret key secret key secret key");
+            var key = Encoding.ASCII.GetBytes("Our very secret secret key");
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Expires = DateTime.UtcNow.AddHours(4),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                Subject = new ClaimsIdentity(
+                Subject = new System.Security.Claims.ClaimsIdentity(
                     new[]
                     {
-                        new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}" ),
+                        new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
                         new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
                     }
-                )
+                    ),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(
+                        new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
@@ -59,50 +58,63 @@ namespace SEDC.MoviesApp.Services.Implementations
                 LastName = user.LastName,
                 Username = user.Username,
                 Token = tokenHandler.WriteToken(token),
-                MovieList = user.MoviList.Select(x=>x.ToMovieDto()).ToList()
-
+                MovieList = user.MoviList.Select(movie => movie.ToMovieDto()).ToList()
             };
-
             return userModel;
-
 
         }
 
         public string LoginUser(LoginDto loginDto)
         {
             if (string.IsNullOrEmpty(loginDto.Username) || string.IsNullOrEmpty(loginDto.Password))
-                throw new UserException(null, loginDto.Username, "Username and password are required fields!");
+            {
+                throw new Exception("Username and password are required fields!");
+            }
 
+            // hash the password
+            //MD5 hash algorithm
             MD5CryptoServiceProvider mD5CryptoServiceProvider = new MD5CryptoServiceProvider();
+
+            //Test123 -> 5467821
             byte[] passwordBytes = Encoding.ASCII.GetBytes(loginDto.Password);
+
+            //get the bytes of the hash string 5467821 -> 2363621
             byte[] hashBytes = mD5CryptoServiceProvider.ComputeHash(passwordBytes);
-            string hashPassword = Encoding.ASCII.GetString(hashBytes);
 
-            User userDb = _userRepository.LoginUser(loginDto.Username, hashPassword);
-            if(userDb == null)
-                throw new UserException(null, loginDto.Username, "Username not found!");
+            //get the hash as string 2363621 -> q654klj
+            string hash = Encoding.ASCII.GetString(hashBytes);
 
-            //TOKEN
+            //try to get the user
+            User userDb = _userRepository.LoginUser(loginDto.Username, hash);
+            if (userDb == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            //GENERATE JWT TOKEN
             JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
-            byte[] secretKeyBytes = Encoding.ASCII.GetBytes("Our secret secret key key");
+            byte[] secretKeyBytes = Encoding.ASCII.GetBytes("Our very secret secret key");
 
             SecurityTokenDescriptor securityTokenDescriptor = new SecurityTokenDescriptor
             {
-                Expires = DateTime.UtcNow.AddDays(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKeyBytes), SecurityAlgorithms.HmacSha256Signature),
+                Expires = DateTime.UtcNow.AddHours(1), // the token will be valid for one hour
+                //signature configuration
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKeyBytes),
+                    SecurityAlgorithms.HmacSha256Signature),
+                //payload
                 Subject = new ClaimsIdentity(
                     new[]
-                    {
-                        new Claim(ClaimTypes.Name, $"{userDb.FirstName} {userDb.LastName}" ),
+                   {
+                        new Claim(ClaimTypes.Name, $"{userDb.FirstName} {userDb.LastName}"),
                         new Claim(ClaimTypes.NameIdentifier, userDb.Id.ToString())
                     }
                 )
             };
 
-            SecurityToken securityToken = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
-
-            return jwtSecurityTokenHandler.WriteToken(securityToken);
-
+            //generate token
+            SecurityToken token = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
+            //convert to string
+            return jwtSecurityTokenHandler.WriteToken(token);
         }
 
         public void RegisterUser(RegisterDto registerDto)

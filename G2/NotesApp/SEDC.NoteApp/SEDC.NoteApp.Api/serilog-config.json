@@ -1,0 +1,74 @@
+// Serilog Nuget packages
+// 1. Serilog.AspNetCore
+// 2. Serilog.Enrichers.Environment
+// 3. Serilog.Enrichers.Process 
+// 4. Serilog.Enrichers.Thread 
+// 5. Serilog.Settings.Configuration 
+// 6. Serilog.Sinks.MSSqlServer 
+// 7. Serilog.Sinks.Seq 
+
+{
+  "Serilog": {
+    // "Using": [],
+
+    // This section sets the minimum log level for various log sources
+    "MinimumLevel": {
+      "Default": "Information", // log messages at or above the "Information" level will be recorded
+      "Override": {
+        "Microsoft": "Warning", // anything originating from Microsoft namespace with severity above Warning ("Warning", "Error" or "Fatal") will be logged 
+        "System": "Warning"
+      }
+    },
+
+    // This section specifies enrichers that add additional context to log events
+    "Enrich": [ "FromLogContext", "WithMachineName", "WithProcessId", "WithThreadId" ],
+
+    // This section defines various Serilog-Sinks (destinations) for log events, specifying where the log messages should be written.
+    "WriteTo": [
+
+      // Write in the Console
+      {
+        "Name": "Console"
+      },
+
+      // Write in Text file
+      {
+        "Name": "File",
+        "Args": {
+          "path": "./Logs/noteAppLogs.txt",
+          "outputTemplate": "[{Timestamp:G} {Level:u3}] : {Message}{NewLine:1}{Exception:1}"
+        }
+      },
+
+      // Structured logging in a JSON file
+      {
+        "Name": "File",
+        "Args": {
+          "path": "./Logs/noteAppLogs.json",
+          "formatter": "Serilog.Formatting.Json.JsonFormatter, Serilog"
+        }
+      },
+
+      // Log messages to a SQL Server database table (BONUS)
+      {
+        "Name": "MSSqlServer",
+        "Args": {
+          "connectionString": "Server=.\\SQLEXPRESS;Database=NoteAppDb;Trusted_Connection=True;Encrypt=False",
+          "sinkOptionsSection": {
+            "tableName": "Logs", // Specify the table name for log entries
+            "autoCreateSqlTable": true // Automatically create the table if it doesn't exist
+          },
+          "restrictedToMinimumLevel": "Information"
+        }
+      },
+
+      // Structured logging using Seq (BONUS) | NOTE: you first need to download and configure Seq on your machine
+      {
+        "Name": "Seq",
+        "Args": {
+          "serverUrl": "http://localhost:5300"
+        }
+      }
+    ]
+  }
+}

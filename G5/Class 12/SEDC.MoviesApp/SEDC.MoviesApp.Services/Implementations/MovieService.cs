@@ -72,7 +72,7 @@ namespace SEDC.MoviesApp.Services.Implementations
 
         public List<MovieDto> GetAllMovies(int userId)
         {
-            return _movieRepository.GetAll().Where(x=>x.UserId == userId).Select(x => x.ToMovieDto()).ToList();
+            return _movieRepository.GetAll().Where(x => x.UserId == userId).Select(x => x.ToMovieDto()).ToList();
         }
 
         public MovieDto GetMovieById(int id)
