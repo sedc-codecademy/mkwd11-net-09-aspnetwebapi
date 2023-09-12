@@ -1,0 +1,13 @@
+// Serilog Nuget packages
+// 1. Serilog.AspNetCore
+// 2. Serilog.Enrichers.Environment
+// 3. Serilog.Enrichers.Process 
+// 4. Serilog.Enrichers.Thread 
+// 5. Serilog.Settings.Configuration 
+// 6. Serilog.Sinks.MSSqlServer *
+// 7. Serilog.Sinks.Seq *
+{
+  "Serilog": {
+
+  }
+}

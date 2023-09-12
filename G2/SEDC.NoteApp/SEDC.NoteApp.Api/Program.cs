@@ -20,6 +20,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Binding our custom configurations
+builder.Configuration
+    .AddJsonFile(path: "appsettings.json", optional: false, reloadOnChange: true)
+    // we manually add our custom setting files to the configuration
+    .AddJsonFile(path: "serilog-config.json", optional: false, reloadOnChange: true)
+    .Build();
+    
+
 var cs = builder.Configuration.GetConnectionString("DefaultConnection");
 
 //Ways to get values from AppSettings (OLD WAY)
