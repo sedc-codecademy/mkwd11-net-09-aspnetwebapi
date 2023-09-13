@@ -1,0 +1,82 @@
+2023-09-13 20:36:43.359 +02:00 [INF] User profile is available. Using 'C:\Users\Danilo Borozan\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-09-13 20:36:44.223 +02:00 [INF] Now listening on: http://localhost:5259
+2023-09-13 20:36:44.232 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-09-13 20:36:44.234 +02:00 [INF] Hosting environment: Development
+2023-09-13 20:36:44.236 +02:00 [INF] Content root path: D:\Seavus - Trainer\Student code\mkwd11-net-09-aspnetwebapi\G5\Class 11\NotesAndTagsApp\NotesAndTagsApp\
+2023-09-13 20:36:50.872 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5259/swagger/index.html - -
+2023-09-13 20:36:58.300 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5259/swagger/index.html - - - 200 - text/html;charset=utf-8 7444.0067ms
+2023-09-13 20:36:58.439 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5259/_framework/aspnetcore-browser-refresh.js - -
+2023-09-13 20:36:58.439 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5259/_vs/browserLink - -
+2023-09-13 20:36:58.446 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5259/_framework/aspnetcore-browser-refresh.js - - - 200 12000 application/javascript;+charset=utf-8 5.5288ms
+2023-09-13 20:36:58.501 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5259/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 62.4655ms
+2023-09-13 20:36:58.766 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5259/swagger/v1/swagger.json - -
+2023-09-13 20:36:59.081 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5259/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 315.2260ms
+2023-09-13 20:37:35.057 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5259/api/User/register application/json 144
+2023-09-13 20:37:35.326 +02:00 [INF] Executing endpoint 'NotesAndTagsApp.Controllers.UserController.Register (NotesAndTagsApp)'
+2023-09-13 20:37:35.392 +02:00 [INF] Route matched with {action = "Register", controller = "User"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Register(NotesAndTagsApp.DTOs.RegisterUserDto) on controller NotesAndTagsApp.Controllers.UserController (NotesAndTagsApp).
+2023-09-13 20:37:36.180 +02:00 [INF] Registration model info: FirstName: Dragisha, LastName: Todoroski, Username: dragishat
+2023-09-13 20:37:39.980 +02:00 [INF] Executed DbCommand (257ms) [Parameters=[@__ToLower_0='?' (Size = 30)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[Firstname], [u].[Lastname], [u].[Password], [u].[Username]
+FROM [Users] AS [u]
+WHERE LOWER([u].[Username]) = @__ToLower_0
+2023-09-13 20:37:40.414 +02:00 [INF] Executed DbCommand (37ms) [Parameters=[@p0='?' (Size = 50), @p1='?' (Size = 50), @p2='?' (Size = 4000), @p3='?' (Size = 30)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Users] ([Firstname], [Lastname], [Password], [Username])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3);
+2023-09-13 20:37:40.473 +02:00 [INF] Successfully registered dragishat
+2023-09-13 20:37:40.488 +02:00 [INF] Executing ObjectResult, writing value of type 'System.String'.
+2023-09-13 20:37:40.497 +02:00 [INF] Executed action NotesAndTagsApp.Controllers.UserController.Register (NotesAndTagsApp) in 5096.2568ms
+2023-09-13 20:37:40.498 +02:00 [INF] Executed endpoint 'NotesAndTagsApp.Controllers.UserController.Register (NotesAndTagsApp)'
+2023-09-13 20:37:40.542 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5259/api/User/register application/json 144 - 201 - text/plain;+charset=utf-8 5485.4229ms
+2023-09-13 20:43:00.178 +02:00 [INF] User profile is available. Using 'C:\Users\Danilo Borozan\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-09-13 20:43:00.611 +02:00 [INF] Now listening on: http://localhost:5259
+2023-09-13 20:43:00.616 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-09-13 20:43:00.618 +02:00 [INF] Hosting environment: Development
+2023-09-13 20:43:00.618 +02:00 [INF] Content root path: D:\Seavus - Trainer\Student code\mkwd11-net-09-aspnetwebapi\G5\Class 11\NotesAndTagsApp\NotesAndTagsApp\
+2023-09-13 20:43:04.407 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5259/swagger/index.html - -
+2023-09-13 20:43:07.761 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5259/_framework/aspnetcore-browser-refresh.js - -
+2023-09-13 20:43:07.798 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5259/_framework/aspnetcore-browser-refresh.js - - - 200 12000 application/javascript;+charset=utf-8 35.2350ms
+2023-09-13 20:43:07.997 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5259/swagger/index.html - - - 200 - text/html;charset=utf-8 3615.3961ms
+2023-09-13 20:43:08.289 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5259/_vs/browserLink - -
+2023-09-13 20:43:09.089 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5259/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 800.2185ms
+2023-09-13 20:43:09.321 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5259/swagger/v1/swagger.json - -
+2023-09-13 20:43:10.375 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5259/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 1054.4154ms
+2023-09-13 20:43:58.821 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5259/api/User/login application/json 56
+2023-09-13 20:43:59.074 +02:00 [INF] Executing endpoint 'NotesAndTagsApp.Controllers.UserController.LoginUser (NotesAndTagsApp)'
+2023-09-13 20:43:59.130 +02:00 [INF] Route matched with {action = "LoginUser", controller = "User"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult LoginUser(NotesAndTagsApp.DTOs.LoginDto) on controller NotesAndTagsApp.Controllers.UserController (NotesAndTagsApp).
+2023-09-13 20:44:03.978 +02:00 [INF] Executed DbCommand (150ms) [Parameters=[@__ToLower_0='?' (Size = 30), @__hashedPassword_1='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[Firstname], [u].[Lastname], [u].[Password], [u].[Username]
+FROM [Users] AS [u]
+WHERE LOWER([u].[Username]) = @__ToLower_0 AND [u].[Password] = @__hashedPassword_1
+2023-09-13 20:44:04.909 +02:00 [INF] Successfully login: dragishat
+2023-09-13 20:44:04.960 +02:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2023-09-13 20:44:04.988 +02:00 [INF] Executed action NotesAndTagsApp.Controllers.UserController.LoginUser (NotesAndTagsApp) in 5834.7259ms
+2023-09-13 20:44:04.991 +02:00 [INF] Executed endpoint 'NotesAndTagsApp.Controllers.UserController.LoginUser (NotesAndTagsApp)'
+2023-09-13 20:44:05.076 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5259/api/User/login application/json 56 - 200 - text/plain;+charset=utf-8 6254.5972ms
+2023-09-13 20:44:44.678 +02:00 [INF] User profile is available. Using 'C:\Users\Danilo Borozan\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-09-13 20:44:44.983 +02:00 [INF] Now listening on: http://localhost:5259
+2023-09-13 20:44:44.997 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-09-13 20:44:44.998 +02:00 [INF] Hosting environment: Development
+2023-09-13 20:44:44.998 +02:00 [INF] Content root path: D:\Seavus - Trainer\Student code\mkwd11-net-09-aspnetwebapi\G5\Class 11\NotesAndTagsApp\NotesAndTagsApp\
+2023-09-13 20:44:48.767 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5259/swagger/index.html - -
+2023-09-13 20:44:52.028 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5259/_framework/aspnetcore-browser-refresh.js - -
+2023-09-13 20:44:52.043 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5259/_framework/aspnetcore-browser-refresh.js - - - 200 12000 application/javascript;+charset=utf-8 9.7379ms
+2023-09-13 20:44:52.044 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5259/swagger/index.html - - - 200 - text/html;charset=utf-8 3293.2917ms
+2023-09-13 20:44:52.231 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5259/_vs/browserLink - -
+2023-09-13 20:44:52.582 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5259/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 350.9393ms
+2023-09-13 20:44:52.908 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5259/swagger/v1/swagger.json - -
+2023-09-13 20:44:53.727 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5259/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 818.5282ms
+2023-09-13 20:45:03.698 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5259/api/User/login application/json 59
+2023-09-13 20:45:04.022 +02:00 [INF] Executing endpoint 'NotesAndTagsApp.Controllers.UserController.LoginUser (NotesAndTagsApp)'
+2023-09-13 20:45:04.105 +02:00 [INF] Route matched with {action = "LoginUser", controller = "User"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult LoginUser(NotesAndTagsApp.DTOs.LoginDto) on controller NotesAndTagsApp.Controllers.UserController (NotesAndTagsApp).
+2023-09-13 20:45:12.922 +02:00 [INF] Executed DbCommand (224ms) [Parameters=[@__ToLower_0='?' (Size = 30), @__hashedPassword_1='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[Firstname], [u].[Lastname], [u].[Password], [u].[Username]
+FROM [Users] AS [u]
+WHERE LOWER([u].[Username]) = @__ToLower_0 AND [u].[Password] = @__hashedPassword_1
+2023-09-13 20:45:13.463 +02:00 [ERR] Internal exception: User not found
+2023-09-13 20:45:13.484 +02:00 [INF] Executing ObjectResult, writing value of type 'System.String'.
+2023-09-13 20:45:13.500 +02:00 [INF] Executed action NotesAndTagsApp.Controllers.UserController.LoginUser (NotesAndTagsApp) in 9382.7572ms
+2023-09-13 20:45:13.501 +02:00 [INF] Executed endpoint 'NotesAndTagsApp.Controllers.UserController.LoginUser (NotesAndTagsApp)'
+2023-09-13 20:45:13.535 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5259/api/User/login application/json 59 - 500 - text/plain;+charset=utf-8 9837.2559ms
