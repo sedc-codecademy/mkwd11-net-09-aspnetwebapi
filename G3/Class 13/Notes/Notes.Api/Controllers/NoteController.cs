@@ -11,7 +11,7 @@ namespace Notes.Api.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Policy = "AdminOnly")]
     public class NoteController : ControllerBase
     {
         private readonly INoteService noteService;
@@ -30,14 +30,14 @@ namespace Notes.Api.Controllers
             logger.LogError("Error");
             logger.LogCritical("Critical");
         }
-
-        [HttpGet] // api/v1/note?title=[SomeValue]
+        [HttpGet]
         public async Task<IActionResult> GetNotes([FromQuery] SearchNotesModel model)
         {
             return Ok(noteService.GetNotes(new ClaimsPrincipalWrapper(User), model));
         }
 
         // api/v1/note/1?name=jovan&name2=jovan2
+        // api/v1/note?title=[SomeValue]
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {

@@ -12,6 +12,7 @@ using Notes.Services.Mapping;
 using Notes.Services.Models;
 using Notes.Services.Service;
 using Notes.Services.Service.External;
+using System.Security.Claims;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -75,6 +76,15 @@ builder.Services.AddAuthentication(opt =>
         ValidateIssuer = false,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret))
     };
+})
+;
+
+builder.Services.AddAuthorization(x =>
+{
+    x.AddPolicy("AdminOnly", policy =>
+    {
+        policy.RequireRole("Admin").RequireClaim(ClaimTypes.Country);
+    });
 });
 
 builder.Services.AddHttpClient(HttpClients.Profiles, httpClient =>
